@@ -9,15 +9,15 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private Button StartButton;
+    private Button startButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        StartButton = findViewById(R.id.mStartButton);
-        StartButton.setOnClickListener(this);
+        startButton = findViewById(R.id.mStartButton);
+        startButton.setOnClickListener(this);
 
     }
 
@@ -25,17 +25,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.mStartButton:
-                Intent i = new Intent(MainActivity.this, GameActivity.class);
+                Intent i = new Intent(MainActivity.this, SettingsActivity.class);
                 startActivity(i);
         }
     }
 
-    /*@Override
-    public void onSaveInstanceState(Bundle savedInstanceState) {
-        super.onSaveInstanceState(savedInstanceState);
-        Log.i(TAG, "onSaveInstanceState");
-        savedInstanceState.putInt(String, int);
-    }*/ //saving data across rotation
+
 
 
 }
