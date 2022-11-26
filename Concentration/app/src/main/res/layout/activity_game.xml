@@ -11,16 +11,30 @@
         android:id="@+id/mEndButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="End Game"
-        tools:layout_editor_absoluteX="290dp"
-        tools:layout_editor_absoluteY="619dp" />
+        android:layout_marginStart="280dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/end_game"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/mNewGame"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="288dp"
         android:layout_marginBottom="100dp"
-        android:text="New Game"
+        android:text="@string/new_game"
         app:layout_constraintBottom_toTopOf="@+id/mEndButton"
-        tools:layout_editor_absoluteX="290dp" />
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainerView"
+        android:name="com.example.concentration.GameFragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="68dp"
+        android:layout_marginBottom="468dp"
+        app:layout_constraintBottom_toTopOf="@+id/mNewGame"
+        app:layout_constraintStart_toStartOf="@+id/mNewGame" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
