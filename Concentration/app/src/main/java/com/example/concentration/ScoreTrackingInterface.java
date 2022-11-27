@@ -2,8 +2,6 @@ package com.example.concentration;
 
 public interface ScoreTrackingInterface {
 
-    int currentScore;
-
     /**
      * Submits the current score to the scores.txt file, trims scores if there are more than three.
      * @param name the name to be added
@@ -36,5 +34,11 @@ public interface ScoreTrackingInterface {
      * @param points the amount of points to be added (negative values are okay).
      */
     public void adjustCurrentScore(int points);
+
+    /**
+     * Gets the current score.
+     * @return int the current score.
+     */
+    public int getCurrentScore();
 
 }
