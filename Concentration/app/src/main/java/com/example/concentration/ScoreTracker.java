@@ -1,38 +1,77 @@
 package com.example.concentration;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
+
 public class ScoreTracker implements ScoreTrackingInterface{
 
     private int score;
+    private int[] highScores;
+    private String[] names;
 
     public ScoreTracker(){
         score = 0;
+        highScores = new int[3];
+        names = new String[3];
+        processScoresFile();
     }
 
-    private void processScores(){
-
+    private void processScoresFile(){
+        Scanner scnr = new Scanner("scores.txt");
+        int i = 0;
+        while (scnr.hasNext()){
+            names[i] = scnr.next();
+            highScores[i] = scnr.nextInt();
+            i++;
+        }
+        scnr.close();
     }
 
     @Override
-    public void submitScore(String name, int newScore) {
+    public void submitScore(String name) {
+
+        int[] newHighScores = new int[highScores.length + 1];
+        String[] newNames = new String[names.length + 1];
+
+        int j=0;
+        boolean spotFlag = false;
+        for(int i=0; i<names.length; i++){
+            if(score >= highScores[i] && !spotFlag){
+                newHighScores[j] = score;
+                newNames[j] = name;
+                j++;
+                spotFlag = true;
+            }
+            newHighScores[j] = highScores[i];
+            newNames[j] = names[i];
+            j++;
+        }
+
+        File scoreFile =new File("scores.txt");
+
         try {
-            FileWriter myWriter = new FileWriter("scores.txt");
-            myWriter.write("Files in Java might be tricky, but it is fun enough!");
-            myWriter.close();
-            System.out.println("Successfully wrote to the file.");
+            FileWriter f2 = new FileWriter(scoreFile, false);
+            for (int i=0; i<3; i++){
+                f2.write(newNames[i] + " " + newHighScores[i]);
+            }
+            f2.close();
         } catch (IOException e) {
-            System.out.println("An error occurred.");
             e.printStackTrace();
         }
+
+        processScoresFile();
     }
 
     @Override
     public String getName(int position) {
-        return null;
+        return names[position];
     }
 
     @Override
     public int getScore(int position) {
-        return 0;
+        return highScores[position];
     }
 
     @Override

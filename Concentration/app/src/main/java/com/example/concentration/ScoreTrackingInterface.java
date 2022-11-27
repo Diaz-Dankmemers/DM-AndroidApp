@@ -5,9 +5,8 @@ public interface ScoreTrackingInterface {
     /**
      * Submits the current score to the scores.txt file, trims scores if there are more than three.
      * @param name the name to be added
-     * @param newScore the score achieved
      */
-    public void submitScore(String name, int newScore);
+    public void submitScore(String name);
 
     /**
      * Gets the name of the person in the score position
