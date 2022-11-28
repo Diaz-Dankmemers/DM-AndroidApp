@@ -22,11 +22,9 @@ public class GameFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
     private boolean mParam1;
-    private String mParam2;
     private AudioPlayer music;
 
     public GameFragment() {
@@ -38,15 +36,13 @@ public class GameFragment extends Fragment {
      * this fragment using the provided parameters.
      *
      * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
      * @return A new instance of fragment GameFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static GameFragment newInstance(String param1, String param2) {
+    public static GameFragment newInstance(String param1) {
         GameFragment fragment = new GameFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -57,7 +53,6 @@ public class GameFragment extends Fragment {
         super.setRetainInstance(true);
         if (getArguments() != null) {
             mParam1 = getArguments().getBoolean(ARG_PARAM1, true);
-            mParam2 = getArguments().getString(ARG_PARAM2);
         }
         music = new AudioPlayer();
 
@@ -74,6 +69,13 @@ public class GameFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        if(mParam1)
+        {
+            music.stop();
+            music.play(GameFragment.this.getContext());
+        }
+        else
+            music.stop();
         return inflater.inflate(R.layout.fragment_game, container, false);
     }
 }

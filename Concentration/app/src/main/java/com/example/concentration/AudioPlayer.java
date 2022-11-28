@@ -16,6 +16,8 @@ public class AudioPlayer {
 
     public void play(Context c){
         mPlayer = MediaPlayer.create(c, R.raw.dancing_in_the_moonlight_johnny_lectro_remix);
+        mPlayer.setLooping(true);
         mPlayer.start();
+
     }
 }

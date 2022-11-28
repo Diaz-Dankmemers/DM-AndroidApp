@@ -12,29 +12,24 @@ import android.util.Log;
 
 public class GameActivity extends AppCompatActivity {
 
-    private AudioPlayer music;
     private FragmentManager fm = getSupportFragmentManager();
     private Fragment fragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
-
-        fragment = fm.findFragmentById(R.id.fragmentContainerView);
-        if(fragment == null)
-        {
-            fragment = new GameFragment();
-            fm.beginTransaction().add(R.id.fragmentContainerView, fragment).commit();
-        }
-
-
+        System.out.println("frag creation.");
+        fragment = new GameFragment();
+        System.out.println("frag creation passed.");
 
         Intent settingsData = getIntent();
 
         Bundle bundle = new Bundle();
         bundle.putBoolean("audio", ((Intent) settingsData).getBooleanExtra("audio", true) );
+        System.out.println("adding settings data");
         fragment.setArguments(bundle);
-        fm.beginTransaction().add(R.id.fragmentContainerView, fragment).commit();
+        fm.beginTransaction().add(R.id.fragmentContainerView2, fragment).commit();
+        System.out.println("settings data added");
     }
 
    /* @Override

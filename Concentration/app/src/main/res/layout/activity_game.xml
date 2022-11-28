@@ -27,14 +27,13 @@
         app:layout_constraintBottom_toTopOf="@+id/mEndButton"
         app:layout_constraintStart_toStartOf="parent" />
 
+
     <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragmentContainerView"
+        android:id="@+id/fragmentContainerView2"
         android:name="com.example.concentration.GameFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="68dp"
-        android:layout_marginBottom="468dp"
-        app:layout_constraintBottom_toTopOf="@+id/mNewGame"
-        app:layout_constraintStart_toStartOf="@+id/mNewGame" />
+        tools:layout_editor_absoluteX="330dp"
+        tools:layout_editor_absoluteY="66dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

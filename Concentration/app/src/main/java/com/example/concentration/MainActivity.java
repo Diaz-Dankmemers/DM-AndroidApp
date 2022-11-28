@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity{
                 switch (v.getId()) {
                     case R.id.mStartButton:
                         Intent i = new Intent(MainActivity.this, SettingsActivity.class);
+                        System.out.println("Test");
                         startActivity(i);
                 }
             }
