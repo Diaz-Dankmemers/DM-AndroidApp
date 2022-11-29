@@ -20,7 +20,7 @@ public class ScoreTracker implements ScoreTrackingInterface{
     }
 
     private void processScoresFile(){
-        File scoreFile = new File("scores.txt");
+        File scoreFile = new File(".\\scores.txt");
         Scanner scnr;
         try {
             scnr = new Scanner(scoreFile);
@@ -57,7 +57,7 @@ public class ScoreTracker implements ScoreTrackingInterface{
             j++;
         }
 
-        File scoreFile =new File("scores.txt");
+        File scoreFile =new File(".\\scores.txt");
 
         try {
             FileWriter f2 = new FileWriter(scoreFile, false);
