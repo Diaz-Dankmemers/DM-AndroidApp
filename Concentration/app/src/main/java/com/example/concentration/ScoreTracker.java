@@ -1,6 +1,7 @@
 package com.example.concentration;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
@@ -19,17 +20,24 @@ public class ScoreTracker implements ScoreTrackingInterface{
     }
 
     private void processScoresFile(){
-        Scanner scnr = new Scanner("scores.txt");
-        int i = 0;
-        while (scnr.hasNext()){
-            names[i] = scnr.next();
-            highScores[i] = scnr.nextInt();
-            i++;
+        File scoreFile = new File("scores.txt");
+        Scanner scnr;
+        try {
+            scnr = new Scanner(scoreFile);
+
+            int i = 0;
+            while (scnr.hasNext()){
+                names[i] = scnr.next();
+                highScores[i] = scnr.nextInt();
+                i++;
+            }
+            scnr.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
-        scnr.close();
+
     }
 
-    @Override
     public void submitScore(String name) {
 
         int[] newHighScores = new int[highScores.length + 1];
@@ -54,7 +62,7 @@ public class ScoreTracker implements ScoreTrackingInterface{
         try {
             FileWriter f2 = new FileWriter(scoreFile, false);
             for (int i=0; i<3; i++){
-                f2.write(newNames[i] + " " + newHighScores[i]);
+                f2.write(newNames[i] + " " + newHighScores[i]+"\n");
             }
             f2.close();
         } catch (IOException e) {
@@ -64,27 +72,22 @@ public class ScoreTracker implements ScoreTrackingInterface{
         processScoresFile();
     }
 
-    @Override
     public String getName(int position) {
         return names[position];
     }
 
-    @Override
     public int getScore(int position) {
         return highScores[position];
     }
 
-    @Override
     public void setCurrentScore(int newScore) {
         score = newScore;
     }
 
-    @Override
     public void adjustCurrentScore(int points) {
         score += points;
     }
 
-    @Override
     public int getCurrentScore(){
         return score;
     }
