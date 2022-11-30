@@ -24,5 +24,15 @@ public class AudioPlayer {
         mPlayer.setLooping(true);
         mPlayer.start();
 
+        ScoreTrackingInterface testScore = new ScoreTracker();
+        System.out.println(testScore.getName(0) + " " + testScore.getScore(0));
+        System.out.println(testScore.getName(1) + " " + testScore.getScore(1));
+        System.out.println(testScore.getName(2) + " " + testScore.getScore(2));
+
+        testScore.setCurrentScore(9);
+        testScore.adjustCurrentScore(4);
+
+        testScore.submitScore("BEP");
+
     }
 }
