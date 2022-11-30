@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -23,6 +24,8 @@ public class GameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game);
         getSupportActionBar().setTitle("Concentration");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+
         System.out.println("frag creation.");
 
         Intent settingsData = getIntent();
@@ -35,13 +38,6 @@ public class GameActivity extends AppCompatActivity {
         fm.beginTransaction().add(R.id.fragmentContainerView2, fragment).commit();
         System.out.println("settings data added");
     }
-
-    /*@Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu., menu);
-        return super.onCreateOptionsMenu(menu);
-    }*/
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
@@ -63,6 +59,7 @@ public class GameActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
 
    /* @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {

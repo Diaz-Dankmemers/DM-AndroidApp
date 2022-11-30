@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
 import android.graphics.drawable.VectorDrawable;
 import android.os.Bundle;
@@ -34,6 +35,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         setContentView(R.layout.activity_settings);
         getSupportActionBar().setTitle("Concentration");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
 
         playButton = findViewById(R.id.mPlayButton);
         playButton.setOnClickListener(this::onClick);
