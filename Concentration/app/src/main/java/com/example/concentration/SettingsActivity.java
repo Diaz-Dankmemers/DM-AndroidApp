@@ -12,6 +12,7 @@ import android.content.res.Resources;
 import android.graphics.drawable.VectorDrawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -28,8 +29,11 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
     private boolean audio;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+        getSupportActionBar().setTitle("Concentration");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         playButton = findViewById(R.id.mPlayButton);
         playButton.setOnClickListener(this::onClick);
@@ -76,5 +80,22 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
 
 
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()){
+
+            case android.R.id.home:
+            {
+                Intent parentActivityIntent = new Intent(SettingsActivity.this, MainActivity.class);
+                parentActivityIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
+                        Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(parentActivityIntent);
+                finish();
+                return true;
+            }
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

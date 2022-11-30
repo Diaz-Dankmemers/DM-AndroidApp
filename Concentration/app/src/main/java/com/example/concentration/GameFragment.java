@@ -25,7 +25,7 @@ public class GameFragment extends Fragment {
 
     // TODO: Rename and change types of parameters
     private boolean mParam1;
-    private AudioPlayer music;
+    public AudioPlayer music;
 
     public GameFragment() {
         // Required empty public constructor
@@ -72,13 +72,9 @@ public class GameFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        if(mParam1)
-        {
-            music.stop();
-            music.play(GameFragment.this.getContext());
-        }
-        else
-            music.stop();
+
         return inflater.inflate(R.layout.fragment_game, container, false);
     }
+
+
 }

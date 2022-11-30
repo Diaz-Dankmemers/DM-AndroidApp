@@ -9,6 +9,9 @@ import androidx.fragment.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 public class GameActivity extends AppCompatActivity {
 
@@ -18,6 +21,8 @@ public class GameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+        getSupportActionBar().setTitle("Concentration");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         System.out.println("frag creation.");
 
         Intent settingsData = getIntent();
@@ -25,13 +30,38 @@ public class GameActivity extends AppCompatActivity {
         fragment = GameFragment.newInstance(((Intent) settingsData).getBooleanExtra("audio", false));
         System.out.println("frag creation passed.");
 
-
-
-
         System.out.println("Settings Received: " + settingsData.getBooleanExtra("audio", true));
         System.out.println("adding settings data");
         fm.beginTransaction().add(R.id.fragmentContainerView2, fragment).commit();
         System.out.println("settings data added");
+    }
+
+    /*@Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu., menu);
+        return super.onCreateOptionsMenu(menu);
+    }*/
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()){
+
+            case android.R.id.home:
+            {
+                fm.beginTransaction().remove(fragment).commit();
+                fragment = GameFragment.newInstance(false);
+                fm.beginTransaction().add(R.id.fragmentContainerView2,fragment).commit();
+                Intent parentActivityIntent = new Intent(GameActivity.this, SettingsActivity.class);
+                parentActivityIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
+                        Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                startActivity(parentActivityIntent);
+                finish();
+                return true;
+            }
+        }
+        return super.onOptionsItemSelected(item);
     }
 
    /* @Override
