@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Switch;
 
 import com.google.android.material.tooltip.TooltipDrawable;
 
@@ -22,7 +23,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
 
 
     private Button playButton;
-    private ImageButton audioButton;
+    private Switch audioButton;
     private Intent settingsDataForGame;
     private boolean audio;
     @Override
@@ -33,13 +34,15 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         playButton = findViewById(R.id.mPlayButton);
         playButton.setOnClickListener(this::onClick);
 
-        audioButton = findViewById(R.id.mAudioButton);
+        audioButton = findViewById(R.id.mAudioSwitch);
         audioButton.setOnClickListener(this::onClick);
-
+        audioButton.setTextOff("No sound");
+        audioButton.setTextOn("Sound");
+        audioButton.setShowText(true);
 
         settingsDataForGame = new Intent(SettingsActivity.this, GameActivity.class);
-        audio = true;
-        settingsDataForGame.putExtra("audio", audio);
+        audio = false;
+
     }
 
     @Override
@@ -52,22 +55,25 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.mAudioButton: {
-                audioButton.setSelected(!audioButton.isPressed());
+            case R.id.mAudioSwitch: {
 
-                if (audioButton.isSelected()) {
-                    audioButton.setImageDrawable(getDrawable(17301554));
-                } else {
-                    audioButton.setImageDrawable(getDrawable(17301553));
+                if(audioButton.isChecked())
+                {
+                    audio = true;
+
                 }
+                else
+                    audio = false;
+                System.out.println(audio);
 
-                audio = !audio;
-                settingsDataForGame.removeExtra("audio");
-                settingsDataForGame.putExtra("audio", audio);
                 break;
             }
-            case R.id.mPlayButton:
+            case R.id.mPlayButton: {
+                System.out.println("Settings passed: " + audio);
+                settingsDataForGame.putExtra("audio", audio);
                 startActivity(settingsDataForGame);
+            }
+
 
         }
     }

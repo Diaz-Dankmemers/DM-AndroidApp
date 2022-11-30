@@ -19,15 +19,17 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
         System.out.println("frag creation.");
-        fragment = new GameFragment();
-        System.out.println("frag creation passed.");
 
         Intent settingsData = getIntent();
 
-        Bundle bundle = new Bundle();
-        bundle.putBoolean("audio", ((Intent) settingsData).getBooleanExtra("audio", true) );
+        fragment = GameFragment.newInstance(((Intent) settingsData).getBooleanExtra("audio", false));
+        System.out.println("frag creation passed.");
+
+
+
+
+        System.out.println("Settings Received: " + settingsData.getBooleanExtra("audio", true));
         System.out.println("adding settings data");
-        fragment.setArguments(bundle);
         fm.beginTransaction().add(R.id.fragmentContainerView2, fragment).commit();
         System.out.println("settings data added");
     }

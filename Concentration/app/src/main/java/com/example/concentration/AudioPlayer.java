@@ -7,6 +7,11 @@ public class AudioPlayer {
 
     private MediaPlayer mPlayer;
 
+
+    public AudioPlayer(){
+
+    }
+
     public void stop(){
         if(mPlayer != null){
             mPlayer.release();

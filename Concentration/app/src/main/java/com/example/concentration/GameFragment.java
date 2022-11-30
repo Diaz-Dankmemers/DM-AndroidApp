@@ -21,7 +21,7 @@ public class GameFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM1 = "audio";
 
     // TODO: Rename and change types of parameters
     private boolean mParam1;
@@ -35,14 +35,15 @@ public class GameFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
+     * @param param1 Audio on/off.
      * @return A new instance of fragment GameFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static GameFragment newInstance(String param1) {
+    public static GameFragment newInstance(boolean param1) {
         GameFragment fragment = new GameFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
+        System.out.println("Settings received in fragment: " + param1);
+        args.putBoolean(ARG_PARAM1, param1);
         fragment.setArguments(args);
         return fragment;
     }
@@ -52,7 +53,9 @@ public class GameFragment extends Fragment {
         super.onCreate(savedInstanceState);
         super.setRetainInstance(true);
         if (getArguments() != null) {
+
             mParam1 = getArguments().getBoolean(ARG_PARAM1, true);
+            System.out.println("Arguments available. Set audio to: " + mParam1);
         }
         music = new AudioPlayer();
 
