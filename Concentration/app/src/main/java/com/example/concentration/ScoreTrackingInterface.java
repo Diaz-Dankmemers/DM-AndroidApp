@@ -18,7 +18,7 @@ public interface ScoreTrackingInterface {
 
     /**
      * Gets the score of the person in the score position
-     * @param position the position in the scores.txt file
+     * @param position the position in the score file
      * @return int the score of the person in position
      */
     public int getScore();

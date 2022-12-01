@@ -23,17 +23,31 @@ public class GameActivity extends AppCompatActivity {
     private Fragment fragment;
 
     //for data saving - remi
+    final Context mContext = this;
     private ScoresJSONSerializer mSerializer;
     private ArrayList<ScoreTracker> mScores;
 
-    private static GameActivity sGameActivity;
+
+    private GameActivity sGameActivity;
     private static Context mAppContext;
 
-    private GameActivity(Context appContext){
-        mAppContext = appContext;
+    public GameActivity(){
+        mAppContext = mContext;
         mScores = new ArrayList<ScoreTracker>();
+
+        //Keep this code disabled until we know the filename
+        mSerializer = new ScoresJSONSerializer(mAppContext, "scores.txt");
+
+        try{
+            mScores = mSerializer.loadScores();
+        } catch (Exception e) {
+            mScores = new ArrayList<ScoreTracker>();
+            Log.e(TAG, "Error loading scores: ", e);
+        }
+
     }
     //end data saving code - remi
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +68,11 @@ public class GameActivity extends AppCompatActivity {
         System.out.println("adding settings data");
         fm.beginTransaction().add(R.id.fragmentContainerView2, fragment).commit();
         System.out.println("settings data added");
+
+        testScores();
+        System.out.println("testScores has been called");
+        saveScores();
+        System.out.println("saveScores has been called");
     }
 
     @Override
@@ -87,6 +106,12 @@ public class GameActivity extends AppCompatActivity {
             Log.e(TAG, "Error saving crimes: ", e);
             return false;
         }
+    }
+
+    public void testScores(){
+        mScores.add(new ScoreTracker());
+        mScores.add(new ScoreTracker());
+        mScores.add(new ScoreTracker());
     }
     //end data saving code - remi
 
