@@ -23,7 +23,7 @@ public class GameActivity extends AppCompatActivity {
     private Fragment fragment;
 
     //for data saving - remi
-    final Context mContext = this;
+    final Context mContext = getBaseContext();
     private ScoresJSONSerializer mSerializer;
     private ArrayList<ScoreTracker> mScores;
 
@@ -36,15 +36,17 @@ public class GameActivity extends AppCompatActivity {
         mScores = new ArrayList<ScoreTracker>();
 
         //Keep this code disabled until we know the filename
-        mSerializer = new ScoresJSONSerializer(mAppContext, "java/com/example/concentration/scores.json");
+        //
+        //mSerializer = new ScoresJSONSerializer(mAppContext, "scores.json");
 
+        /*
         try{
             mScores = mSerializer.loadScores();
         } catch (Exception e) {
             mScores = new ArrayList<ScoreTracker>();
             Log.e(TAG, "Error loading scores: ", e);
         }
-
+        */
     }
     //end data saving code - remi
 
