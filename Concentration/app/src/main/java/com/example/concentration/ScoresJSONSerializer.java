@@ -6,7 +6,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.*;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
@@ -39,6 +43,35 @@ public class ScoresJSONSerializer {
                 writer.close();
         }
 
+    }
+
+    public ArrayList<ScoreTracker> loadScores() throws IOException, JSONException{
+        ArrayList<ScoreTracker> scores = new ArrayList<ScoreTracker>();
+        BufferedReader reader = null;
+        try{
+            //Open and read file into StringBuilder
+            InputStream in = mContext.openFileInput(mFileName);
+            reader = new BufferedReader(new InputStreamReader(in));
+
+            StringBuilder jsonString = new StringBuilder();
+            String line = null;
+            while ((line = reader.readLine()) != null){
+                //line breaks omitted and irrelevant
+                jsonString.append(line);
+            }
+            //Parse the JSON using JSONTokener
+            JSONArray array = (JSONArray) new JSONTokener(jsonString.toString()).nextValue();
+            //Build the array of scores from JSONObjects
+            for (int i=0; i< array.length(); i++){
+                scores.add(new ScoreTracker(array.getJSONObject(i)));
+            }
+        } catch (FileNotFoundException e){
+            //Ignored, only happens when starting fresh
+        } finally {
+            if (reader != null)
+                reader.close();
+        }
+        return scores;
     }
 
 }

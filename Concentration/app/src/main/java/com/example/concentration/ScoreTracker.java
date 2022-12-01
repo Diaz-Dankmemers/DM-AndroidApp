@@ -25,6 +25,11 @@ public class ScoreTracker implements ScoreTrackingInterface{
         return json;
     }
 
+    public ScoreTracker(JSONObject json) throws JSONException{
+        score = json.getInt(JSON_SCORES);
+        name = json.getString(JSON_NAMES);
+    }
+
     public ScoreTracker() {
         score = 0;
         name = "AAA";

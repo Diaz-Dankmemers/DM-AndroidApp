@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
@@ -14,10 +15,26 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import java.util.ArrayList;
+
 public class GameActivity extends AppCompatActivity {
 
     private FragmentManager fm = getSupportFragmentManager();
     private Fragment fragment;
+
+    //for data saving - remi
+    private ScoresJSONSerializer mSerializer;
+    private ArrayList<ScoreTracker> mScores;
+
+    private static GameActivity sGameActivity;
+    private static Context mAppContext;
+
+    private GameActivity(Context appContext){
+        mAppContext = appContext;
+        mScores = new ArrayList<ScoreTracker>();
+    }
+    //end data saving code - remi
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +77,18 @@ public class GameActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    //for data saving - remi
+    public boolean saveScores(){
+        try {
+            mSerializer.saveNames(mScores);
+            Log.d(TAG, "scores saved to file");
+            return true;
+        } catch (Exception e){
+            Log.e(TAG, "Error saving crimes: ", e);
+            return false;
+        }
+    }
+    //end data saving code - remi
 
    /* @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
