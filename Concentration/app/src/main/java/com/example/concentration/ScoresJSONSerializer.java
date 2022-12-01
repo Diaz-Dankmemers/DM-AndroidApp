@@ -22,12 +22,10 @@ public class ScoresJSONSerializer {
         mFileName = f;
     }
 
-    public void saveNames(ArrayList<String> names, ArrayList<String> scores) throws JSONException, IOException {
-        JSONArray nameArray = new JSONArray();
-        JSONArray scoreArray = new JSONArray();
-        for (int i=0; i<scores.size(); i++){
-            nameArray.put(names.get(i));
-            scoreArray.put(scores.get(i));
+    public void saveNames(ArrayList<ScoreTracker> scores) throws JSONException, IOException {
+        JSONArray array = new JSONArray();
+        for (ScoreTracker s : scores){
+            array.put(s.toJSON());
         }
         //write file to disk
 
@@ -35,8 +33,7 @@ public class ScoresJSONSerializer {
         try{
             OutputStream out = mContext.openFileOutput(mFileName, Context.MODE_PRIVATE);
             writer = new OutputStreamWriter(out);
-            writer.write(nameArray.toString());
-            writer.write(scoreArray.toString());
+            writer.write(array.toString());
         } finally {
             if (writer != null)
                 writer.close();
