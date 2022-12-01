@@ -10,7 +10,9 @@ import org.json.JSONException;
 import org.json.*;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -23,10 +25,18 @@ public class ScoresJSONSerializer {
 
     private Context mContext;
     private String mFileName;
+    private File scoreFile;
 
     public ScoresJSONSerializer(Context c, String f){
         mContext = c;
         mFileName = f;
+        scoreFile = mContext.getFilesDir();
+
+            /* This logic will check whether the file
+             * exists or not. If the file is not found
+             * at the specified location it would create
+             * a new file*/
+
     }
 
     public void saveScores(ArrayList<ScoreTracker> scores) throws JSONException, IOException {
@@ -35,6 +45,19 @@ public class ScoresJSONSerializer {
             array.put(s.toJSON());
         }
         //write file to disk
+        //TEST
+        try{
+            FileOutputStream writerTest = new FileOutputStream(new File(scoreFile, mFileName));
+            writerTest.write(mFileName.getBytes());
+            writerTest.close();
+            System.out.println("Wrote to file");
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+        //TEST END
+
+
 
         Writer writer = null;
         try{
