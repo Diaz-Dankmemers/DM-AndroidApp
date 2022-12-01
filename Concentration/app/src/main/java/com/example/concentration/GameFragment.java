@@ -69,6 +69,13 @@ public class GameFragment extends Fragment {
     }
 
     @Override
+    public void onDestroy() {
+
+        super.onDestroy();
+        music.stop();
+    }
+    
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment

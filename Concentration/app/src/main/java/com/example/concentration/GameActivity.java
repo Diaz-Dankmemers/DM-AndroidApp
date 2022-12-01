@@ -64,7 +64,7 @@ public class GameActivity extends AppCompatActivity {
         fragment = GameFragment.newInstance(((Intent) settingsData).getBooleanExtra("audio", false));
         System.out.println("frag creation passed.");
 
-        System.out.println("Settings Received: " + settingsData.getBooleanExtra("audio", true));
+        System.out.println("Settings Received: " + settingsData.getBooleanExtra("audio", false));
         System.out.println("adding settings data");
         fm.beginTransaction().add(R.id.fragmentContainerView2, fragment).commit();
         System.out.println("settings data added");
