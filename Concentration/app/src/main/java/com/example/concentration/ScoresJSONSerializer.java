@@ -1,6 +1,9 @@
 package com.example.concentration;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Context;
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,7 +29,7 @@ public class ScoresJSONSerializer {
         mFileName = f;
     }
 
-    public void saveNames(ArrayList<ScoreTracker> scores) throws JSONException, IOException {
+    public void saveScores(ArrayList<ScoreTracker> scores) throws JSONException, IOException {
         JSONArray array = new JSONArray();
         for (ScoreTracker s : scores){
             array.put(s.toJSON());
@@ -38,6 +41,7 @@ public class ScoresJSONSerializer {
             OutputStream out = mContext.openFileOutput(mFileName, Context.MODE_PRIVATE);
             writer = new OutputStreamWriter(out);
             writer.write(array.toString());
+            Log.d(TAG, "scores saved successfully");
         } finally {
             if (writer != null)
                 writer.close();

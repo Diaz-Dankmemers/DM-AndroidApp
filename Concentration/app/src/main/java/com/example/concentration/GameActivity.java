@@ -36,7 +36,7 @@ public class GameActivity extends AppCompatActivity {
         mScores = new ArrayList<ScoreTracker>();
 
         //Keep this code disabled until we know the filename
-        mSerializer = new ScoresJSONSerializer(mAppContext, "scores.txt");
+        mSerializer = new ScoresJSONSerializer(mAppContext, "java/com/example/concentration/scores.json");
 
         try{
             mScores = mSerializer.loadScores();
@@ -99,7 +99,7 @@ public class GameActivity extends AppCompatActivity {
     //for data saving - remi
     public boolean saveScores(){
         try {
-            mSerializer.saveNames(mScores);
+            mSerializer.saveScores(mScores);
             Log.d(TAG, "scores saved to file");
             return true;
         } catch (Exception e){
