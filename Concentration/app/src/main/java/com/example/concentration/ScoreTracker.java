@@ -18,13 +18,6 @@ public class ScoreTracker implements ScoreTrackingInterface{
     private int score;
     private String name;
 
-    public JSONObject toJSON() throws JSONException{
-        JSONObject json = new JSONObject();
-        json.put(JSON_NAMES, name);
-        json.put(JSON_SCORES, score);
-        return json;
-    }
-
     public ScoreTracker(JSONObject json) throws JSONException{
         score = json.getInt(JSON_SCORES);
         name = json.getString(JSON_NAMES);
@@ -34,6 +27,25 @@ public class ScoreTracker implements ScoreTrackingInterface{
         score = 0;
         name = "AAA";
     }
+
+    public ScoreTracker(int points, String word){
+        score = points;
+        if(word.length() > 3)
+        {
+            name = word.substring(0,2);
+        }
+        else
+            name = word;
+    }
+
+    public JSONObject toJSON() throws JSONException{
+        JSONObject json = new JSONObject();
+        json.put(JSON_NAMES, name);
+        json.put(JSON_SCORES, score);
+        return json;
+    }
+
+
 
     public void setName(String newName){
         name = newName;
@@ -51,7 +63,7 @@ public class ScoreTracker implements ScoreTrackingInterface{
         score = newScore;
     }
 
-    public void adjustScore(int points) {
+    public void addScore(int points) {
         score += points;
     }
 }

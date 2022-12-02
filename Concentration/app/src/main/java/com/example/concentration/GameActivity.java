@@ -21,34 +21,12 @@ public class GameActivity extends AppCompatActivity {
 
     private FragmentManager fm = getSupportFragmentManager();
     private Fragment fragment;
+    private Score score;
 
-    //for data saving - remi
-    final Context mContext = getBaseContext();
-    private ScoresJSONSerializer mSerializer;
-    private ArrayList<ScoreTracker> mScores;
+    //moved data saving to Score.java
 
 
-    private GameActivity sGameActivity;
-    private static Context mAppContext;
 
-    public GameActivity(){
-        mAppContext = mContext;
-        mScores = new ArrayList<ScoreTracker>();
-
-        //Keep this code disabled until we know the filename
-        //
-        //mSerializer = new ScoresJSONSerializer(mAppContext, "scores.json");
-
-        /*
-        try{
-            mScores = mSerializer.loadScores();
-        } catch (Exception e) {
-            mScores = new ArrayList<ScoreTracker>();
-            Log.e(TAG, "Error loading scores: ", e);
-        }
-        */
-    }
-    //end data saving code - remi
 
 
     @Override
@@ -59,6 +37,7 @@ public class GameActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
 
+        score = new Score(GameActivity.this);
         System.out.println("frag creation.");
 
         Intent settingsData = getIntent();
@@ -71,9 +50,9 @@ public class GameActivity extends AppCompatActivity {
         fm.beginTransaction().add(R.id.fragmentContainerView2, fragment).commit();
         System.out.println("settings data added");
 
-        testScores();
+        score.testScores();
         System.out.println("testScores has been called");
-        saveScores();
+        score.saveScores();
         System.out.println("saveScores has been called");
     }
 
@@ -98,24 +77,8 @@ public class GameActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    //for data saving - remi
-    public boolean saveScores(){
-        try {
-            mSerializer.saveScores(mScores);
-            Log.d(TAG, "scores saved to file");
-            return true;
-        } catch (Exception e){
-            Log.e(TAG, "Error saving crimes: ", e);
-            return false;
-        }
-    }
+    //moved to Score.java
 
-    public void testScores(){
-        mScores.add(new ScoreTracker());
-        mScores.add(new ScoreTracker());
-        mScores.add(new ScoreTracker());
-    }
-    //end data saving code - remi
 
    /* @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {

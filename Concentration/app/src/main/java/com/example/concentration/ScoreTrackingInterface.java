@@ -33,5 +33,5 @@ public interface ScoreTrackingInterface {
      * Adjusts the score by the desired value
      * @param points the amount of points to be added (negative values are okay).
      */
-    public void adjustScore(int points);
+    public void addScore(int points);
 }
