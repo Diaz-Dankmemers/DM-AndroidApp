@@ -5,9 +5,20 @@ import android.media.MediaPlayer;
 
 public class AudioPlayer {
 
-    private MediaPlayer mPlayer;
+    private static MediaPlayer mPlayer;
 
 
+    public static MediaPlayer get(Context c){
+        if(mPlayer == null)
+        {
+            mPlayer = MediaPlayer.create(c, R.raw.dancing_in_the_moonlight_johnny_lectro_remix);
+        }
+        return mPlayer;
+    }
+
+    AudioPlayer(){
+
+    }
 
 
     public void stop(){
@@ -21,6 +32,15 @@ public class AudioPlayer {
         mPlayer = MediaPlayer.create(c, R.raw.dancing_in_the_moonlight_johnny_lectro_remix);
         mPlayer.setLooping(true);
         mPlayer.setVolume(50,50);
+        mPlayer.start();
+    }
+
+    public void pause()
+    {
+        mPlayer.pause();
+    }
+
+    public void unpause(){
         mPlayer.start();
     }
 }
