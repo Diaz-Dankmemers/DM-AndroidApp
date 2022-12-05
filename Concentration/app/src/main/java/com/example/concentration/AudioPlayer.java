@@ -16,6 +16,8 @@ public class AudioPlayer {
         return mAudioPlayer;
     }
 
+
+
     private AudioPlayer(){
 
     }
@@ -35,7 +37,7 @@ public class AudioPlayer {
         mPlayer.start();
     }
 
-    /*public void pause()
+    public void pause()
     {
         mPlayer.pause();
     }
@@ -51,7 +53,7 @@ public class AudioPlayer {
 
     public void goTo(int place){
         mPlayer.seekTo(place);
-    }*/
+    }
 
     public boolean isPlaying(){
         return mPlayer.isPlaying();

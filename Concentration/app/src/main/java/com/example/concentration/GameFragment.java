@@ -26,7 +26,8 @@ public class GameFragment extends Fragment {
 
     // TODO: Rename and change types of parameters
     private boolean mParam1;
-    public static AudioPlayer music;
+    private AudioPlayer music;
+    private int musicTimestamp;
 
     public GameFragment() {
         // Required empty public constructor
@@ -46,6 +47,7 @@ public class GameFragment extends Fragment {
         System.out.println("Settings received in fragment: " + param1);
         args.putBoolean(ARG_PARAM1, param1);
         fragment.setArguments(args);
+
         return fragment;
     }
 
@@ -58,22 +60,31 @@ public class GameFragment extends Fragment {
             mParam1 = getArguments().getBoolean(ARG_PARAM1, true);
             System.out.println("Arguments available. Set audio to: " + mParam1);
         }
+        music = AudioPlayer.get();
 
-
-        if(mParam1 && music != null && !music.isPlaying())
+        if(mParam1)
         {
-            music = AudioPlayer.get();
-            music.stop();
-            music.play(GameFragment.this.getContext());
-        }
+            try{
+                music.stop();
+                music.goTo(musicTimestamp);
+                music.play(GameFragment.this.getContext());
+            }catch (Exception e) {
+                music.stop();
+                music.play(GameFragment.this.getContext());
+            }
 
+        }
+        else
+            music.stop();
     }
 
     @Override
     public void onDestroy() {
 
-        super.onDestroy();
+
         music.stop();
+        super.onDestroy();
+
     }
 
     @Override
@@ -84,14 +95,26 @@ public class GameFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_game, container, false);
     }
 
-    /*@Override
+    @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         savedInstanceState.putInt("musicTimestamp",music.getTimeStamp());
         music.pause();
         super.onSaveInstanceState(savedInstanceState);
 
 
-    }*/
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        try{
+            int pos = savedInstanceState.getInt("musicTimestamp");
+            music.goTo(pos);
+        } catch(Exception ignored) {
+
+        }
+
+        super.onActivityCreated(savedInstanceState);
+    }
 
 
 
