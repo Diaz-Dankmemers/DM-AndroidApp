@@ -36,6 +36,37 @@ public class Score {
 
     }
 
+    //Removes all but the three highest scores.
+    private void removeLowScores(){
+        while(mScores.size() > 3) {
+            int lowest = Integer.MAX_VALUE;
+            int index = 0;
+            for (int i = 0; i < mScores.size(); i++) {
+                if (mScores.get(i).getScore() < lowest) {
+                    index = i;
+                    lowest = mScores.get(i).getScore();
+                }
+            }
+            mScores.remove(index);
+        }
+    }
+
+    private void sortScores(){
+        ArrayList<ScoreTracker> sorted = new ArrayList<>();
+        while(!mScores.isEmpty()){
+            int highest = Integer.MIN_VALUE;
+            int index = 0;
+            for (int i=0; i<mScores.size(); i++){
+                if (mScores.get(i).getScore() > highest){
+                    index = i;
+                    highest = mScores.get(i).getScore();
+                }
+            }
+            sorted.add(mScores.remove(index));
+        }
+        mScores = sorted;
+    }
+
     public void addScore(ScoreTracker s)
     {
         mScores.add(s);
@@ -43,6 +74,8 @@ public class Score {
 
     public boolean saveScores() {
         try {
+            removeLowScores();
+            sortScores();
             mSerializer.saveScores(mScores);
             Log.d(TAG, "scores saved to file");
             return true;
@@ -52,10 +85,21 @@ public class Score {
         }
     }
 
+    public void resetScores(){
+        mScores = new ArrayList<ScoreTracker>();
+        mScores.add(new ScoreTracker());
+        mScores.add(new ScoreTracker());
+        mScores.add(new ScoreTracker());
+    }
+
     public void testScores(){
+        resetScores();
         mScores.add(new ScoreTracker(50, "DAN"));
         mScores.add(new ScoreTracker());
         mScores.add(new ScoreTracker());
+        mScores.add(new ScoreTracker(20, "JEF"));
+        mScores.add(new ScoreTracker(66, "POG"));
+        mScores.add(new ScoreTracker(12, "BOI"));
     }
     //end data saving code - remi
 }
