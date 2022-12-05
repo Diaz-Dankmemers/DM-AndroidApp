@@ -26,7 +26,7 @@ public class GameFragment extends Fragment {
 
     // TODO: Rename and change types of parameters
     private boolean mParam1;
-    private AudioPlayer music;
+    private static AudioPlayer music = AudioPlayer.get();;
 
     public GameFragment() {
         // Required empty public constructor
@@ -46,6 +46,7 @@ public class GameFragment extends Fragment {
         System.out.println("Settings received in fragment: " + param1);
         args.putBoolean(ARG_PARAM1, param1);
         fragment.setArguments(args);
+
         return fragment;
     }
 
@@ -59,7 +60,7 @@ public class GameFragment extends Fragment {
             mParam1 = getArguments().getBoolean(ARG_PARAM1, true);
             System.out.println("Arguments available. Set audio to: " + mParam1);
         }
-        music = AudioPlayer.get();
+
         music.setSong(GameFragment.this.getContext());
 
         if (mParam1) {
