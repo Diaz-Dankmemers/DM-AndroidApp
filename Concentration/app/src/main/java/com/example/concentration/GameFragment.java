@@ -2,7 +2,9 @@ package com.example.concentration;
 
 import static android.content.Intent.getIntent;
 
+import android.app.Activity;
 import android.app.GameManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -26,8 +28,9 @@ public class GameFragment extends Fragment {
 
     // TODO: Rename and change types of parameters
     private boolean mParam1;
-    private AudioPlayer music = AudioPlayer.get();
-    private boolean flag = true;
+    private AudioPlayer music;
+    private int musicTimestamp;
+
 
     public GameFragment() {
         // Required empty public constructor
@@ -62,24 +65,11 @@ public class GameFragment extends Fragment {
             System.out.println("Arguments available. Set audio to: " + mParam1);
         }
 
-        if(flag)
-        {
-            music.setSong(GameFragment.this.getContext());
-            flag = false;
-        }
-
+            music = AudioPlayer.get(GameFragment.this.getContext());
 
         if (mParam1) {
-
-            try{
-                if (!music.isPlaying()) {
-                    music.stop();
-                    music.play();
-                }
-            } catch(Exception ignored)
-            {
-
-            }
+            music.stop();
+            music.play(GameFragment.this.getContext());
 
         }
         else
@@ -89,8 +79,30 @@ public class GameFragment extends Fragment {
 
     }
 
+    @Override
+    public void onAttach(Context context) {
 
+        if(mParam1)
+        {
+            try {
+                music.stop();
+                music.goTo(musicTimestamp);
+                music.play(GameFragment.this.getContext());
+            } catch (Exception e)
+            {
+                music.stop();
+                music.play(GameFragment.this.getContext());
+            }
+        }
+        super.onAttach(context);
+    }
 
+    @Override
+    public void onDetach() {
+        musicTimestamp = music.getTimeStamp();
+        music.stop();
+        super.onDetach();
+    }
 
     @Override
     public void onDestroy() {

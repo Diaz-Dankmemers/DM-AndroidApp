@@ -8,11 +8,12 @@ public class AudioPlayer {
     private static MediaPlayer mPlayer;
     private static AudioPlayer mAudioPlayer;
 
-    public static AudioPlayer get(){
+    public static AudioPlayer get(Context c){
         if(mAudioPlayer == null)
         {
            mAudioPlayer = new AudioPlayer();
         }
+        mAudioPlayer.setSong(c);
         return mAudioPlayer;
     }
 
@@ -33,8 +34,9 @@ public class AudioPlayer {
     public void setSong(Context c){
         mPlayer = MediaPlayer.create(c, R.raw.dancing_in_the_moonlight_johnny_lectro_remix);
     }
-    public void play(){
+    public void play(Context c){
 
+        setSong(c);
         mPlayer.setLooping(true);
         mPlayer.setVolume(50,50);
         mPlayer.start();
