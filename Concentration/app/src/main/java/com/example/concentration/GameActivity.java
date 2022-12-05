@@ -20,7 +20,7 @@ import java.util.ArrayList;
 public class GameActivity extends AppCompatActivity {
 
     private FragmentManager fm = getSupportFragmentManager();
-    private Fragment fragment;
+    private static Fragment fragment;
     private Score score;
 
     //moved data saving to Score.java

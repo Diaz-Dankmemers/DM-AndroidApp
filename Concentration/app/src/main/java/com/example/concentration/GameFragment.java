@@ -56,6 +56,7 @@ public class GameFragment extends Fragment {
         super.onCreate(savedInstanceState);
         try{
             musicTimestamp = savedInstanceState.getInt("musicTimestamp");
+            System.out.println("Time stamp initialized");
         } catch(Exception ignored) {
 
         }
@@ -101,13 +102,28 @@ public class GameFragment extends Fragment {
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
         savedInstanceState.putInt("musicTimestamp",music.getTimeStamp());
         music.pause();
-        super.onSaveInstanceState(savedInstanceState);
+        System.out.println("Saved music time stamp.");
+
 
 
     }
 
-    
+    @Override
+    public void onViewStateRestored(Bundle savedInstanceState) {
+
+        super.onViewStateRestored(savedInstanceState);
+        try{
+            musicTimestamp = savedInstanceState.getInt("musicTimestamp");
+            System.out.println("Time stamp initialized in onViewStateRestored");
+        } catch (Exception ignored){
+            
+        }
+
+    }
+
+
 
 }
