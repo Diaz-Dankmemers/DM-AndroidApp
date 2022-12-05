@@ -58,7 +58,7 @@ public class GameFragment extends Fragment {
             mParam1 = getArguments().getBoolean(ARG_PARAM1, true);
             System.out.println("Arguments available. Set audio to: " + mParam1);
         }
-        music = new AudioPlayer();
+        music = AudioPlayer.get();
 
         if(mParam1)
         {
