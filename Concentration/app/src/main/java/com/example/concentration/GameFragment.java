@@ -107,9 +107,8 @@ public class GameFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         try{
-            int pos = savedInstanceState.getInt("musicTimestamp");
-            music.goTo(pos);
-        } catch(Exception ignored) {
+            musicTimestamp = savedInstanceState.getInt("musicTimestamp");
+            } catch(Exception ignored) {
 
         }
 
