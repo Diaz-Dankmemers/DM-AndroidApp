@@ -5,6 +5,8 @@ import static android.content.ContentValues.TAG;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Context;
 import android.content.Intent;
@@ -20,7 +22,7 @@ import java.util.ArrayList;
 public class GameActivity extends AppCompatActivity {
 
     private FragmentManager fm = getSupportFragmentManager();
-    private static Fragment fragment;
+    private Fragment fragment;
     private Score score;
 
     //moved data saving to Score.java
@@ -38,6 +40,7 @@ public class GameActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
 
         score = new Score(GameActivity.this);
+
         System.out.println("frag creation.");
 
         Intent settingsData = getIntent();
@@ -80,10 +83,10 @@ public class GameActivity extends AppCompatActivity {
     //moved to Score.java
 
 
-   /* @Override
+   @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
+
         Log.i(TAG, "onSaveInstanceState");
-        savedInstanceState.putInt(String, int);
-    } *///saving data across rotation, save game state on rotation
+    } //saving data across rotation, save game state on rotation
 }
