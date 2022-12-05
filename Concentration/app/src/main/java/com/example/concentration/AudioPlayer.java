@@ -35,12 +35,25 @@ public class AudioPlayer {
         mPlayer.start();
     }
 
-    public void pause()
+    /*public void pause()
     {
         mPlayer.pause();
     }
 
     public void unpause(){
         mPlayer.start();
+    }
+
+    public int getTimeStamp()
+    {
+       return mPlayer.getCurrentPosition();
+    }
+
+    public void goTo(int place){
+        mPlayer.seekTo(place);
+    }*/
+
+    public boolean isPlaying(){
+        return mPlayer.isPlaying();
     }
 }

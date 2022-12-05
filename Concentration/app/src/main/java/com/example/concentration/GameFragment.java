@@ -26,7 +26,7 @@ public class GameFragment extends Fragment {
 
     // TODO: Rename and change types of parameters
     private boolean mParam1;
-    public AudioPlayer music;
+    public static AudioPlayer music;
 
     public GameFragment() {
         // Required empty public constructor
@@ -58,15 +58,15 @@ public class GameFragment extends Fragment {
             mParam1 = getArguments().getBoolean(ARG_PARAM1, true);
             System.out.println("Arguments available. Set audio to: " + mParam1);
         }
-        music = AudioPlayer.get();
 
-        if(mParam1)
+
+        if(mParam1 && music != null && !music.isPlaying())
         {
+            music = AudioPlayer.get();
             music.stop();
             music.play(GameFragment.this.getContext());
         }
-        else
-            music.stop();
+
     }
 
     @Override
@@ -84,12 +84,16 @@ public class GameFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_game, container, false);
     }
 
-    @Override
+    /*@Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
-        super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putInt("musicTimestamp",music.getTimeStamp());
         music.pause();
-        music.unpause();
-    }
+        super.onSaveInstanceState(savedInstanceState);
+
+
+    }*/
+
+
 
 
 }
