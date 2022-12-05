@@ -60,13 +60,20 @@ public class GameFragment extends Fragment {
             System.out.println("Arguments available. Set audio to: " + mParam1);
         }
         music = AudioPlayer.get();
+        music.setSong(GameFragment.this.getContext());
 
         if (mParam1) {
 
-            if (!music.isPlaying()) {
-                music.stop();
-                music.play(GameFragment.this.getContext());
+            try{
+                if (!music.isPlaying()) {
+                    music.stop();
+                    music.play();
+                }
+            } catch(Exception ignored)
+            {
+
             }
+
         }
         else
         {
