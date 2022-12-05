@@ -1,9 +1,5 @@
 package com.example.concentration;
 
-import static android.content.Intent.getIntent;
-
-import android.app.GameManager;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
