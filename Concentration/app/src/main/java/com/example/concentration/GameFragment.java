@@ -54,7 +54,11 @@ public class GameFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        super.setRetainInstance(true);
+        try{
+            musicTimestamp = savedInstanceState.getInt("musicTimestamp");
+        } catch(Exception ignored) {
+
+        }
         if (getArguments() != null) {
 
             mParam1 = getArguments().getBoolean(ARG_PARAM1, true);
@@ -104,18 +108,6 @@ public class GameFragment extends Fragment {
 
     }
 
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        try{
-            musicTimestamp = savedInstanceState.getInt("musicTimestamp");
-            } catch(Exception ignored) {
-
-        }
-
-        super.onActivityCreated(savedInstanceState);
-    }
-
-
-
+    
 
 }
