@@ -5,7 +5,7 @@ import android.media.MediaPlayer;
 
 public class AudioPlayer {
 
-    private MediaPlayer mPlayer;
+    private static MediaPlayer mPlayer;
     private static AudioPlayer mAudioPlayer;
 
     public static AudioPlayer get(){

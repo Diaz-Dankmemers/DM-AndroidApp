@@ -26,7 +26,8 @@ public class GameFragment extends Fragment {
 
     // TODO: Rename and change types of parameters
     private boolean mParam1;
-    private static AudioPlayer music = AudioPlayer.get();;
+    private AudioPlayer music = AudioPlayer.get();
+    private boolean flag = true;
 
     public GameFragment() {
         // Required empty public constructor
@@ -61,7 +62,12 @@ public class GameFragment extends Fragment {
             System.out.println("Arguments available. Set audio to: " + mParam1);
         }
 
-        music.setSong(GameFragment.this.getContext());
+        if(flag)
+        {
+            music.setSong(GameFragment.this.getContext());
+            flag = false;
+        }
+
 
         if (mParam1) {
 
@@ -91,6 +97,7 @@ public class GameFragment extends Fragment {
 
 
         music.stop();
+
         super.onDestroy();
 
     }
