@@ -22,7 +22,8 @@ public class GameFragment extends Fragment {
 
     // TODO: Rename and change types of parameters
     private boolean mParam1;
-    public AudioPlayer music;
+    private AudioPlayer music;
+    private int musicTimestamp;
 
     public GameFragment() {
         // Required empty public constructor
@@ -42,24 +43,37 @@ public class GameFragment extends Fragment {
         System.out.println("Settings received in fragment: " + param1);
         args.putBoolean(ARG_PARAM1, param1);
         fragment.setArguments(args);
+
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        super.setRetainInstance(true);
+        try{
+            musicTimestamp = savedInstanceState.getInt("musicTimestamp");
+            System.out.println("Time stamp initialized");
+        } catch(Exception ignored) {
+
+        }
         if (getArguments() != null) {
 
             mParam1 = getArguments().getBoolean(ARG_PARAM1, true);
             System.out.println("Arguments available. Set audio to: " + mParam1);
         }
-        music = new AudioPlayer();
+        music = AudioPlayer.get();
 
         if(mParam1)
         {
-            music.stop();
-            music.play(GameFragment.this.getContext());
+            try{
+                music.stop();
+                music.goTo(musicTimestamp);
+                music.play(GameFragment.this.getContext());
+            }catch (Exception e) {
+                music.stop();
+                music.play(GameFragment.this.getContext());
+            }
+
         }
         else
             music.stop();
@@ -68,8 +82,10 @@ public class GameFragment extends Fragment {
     @Override
     public void onDestroy() {
 
-        super.onDestroy();
+
         music.stop();
+        super.onDestroy();
+
     }
 
     @Override
@@ -83,9 +99,27 @@ public class GameFragment extends Fragment {
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putInt("musicTimestamp",music.getTimeStamp());
         music.pause();
-        music.unpause();
+        System.out.println("Saved music time stamp.");
+
+
+
     }
+
+    @Override
+    public void onViewStateRestored(Bundle savedInstanceState) {
+
+        super.onViewStateRestored(savedInstanceState);
+        try{
+            musicTimestamp = savedInstanceState.getInt("musicTimestamp");
+            System.out.println("Time stamp initialized in onViewStateRestored");
+        } catch (Exception ignored){
+            
+        }
+
+    }
+
 
 
 }
