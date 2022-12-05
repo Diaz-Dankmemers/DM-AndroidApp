@@ -1,11 +1,14 @@
 package com.example.concentration;
 
+<<<<<<< HEAD
 import static android.content.Intent.getIntent;
 
 import android.app.Activity;
 import android.app.GameManager;
 import android.content.Context;
 import android.content.Intent;
+=======
+>>>>>>> f5deecf96233ca60bcf9efc332bf2463423f29c8
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
