@@ -22,8 +22,8 @@ public class GameFragment extends Fragment {
 
     // TODO: Rename and change types of parameters
     private boolean mParam1;
-    private AudioPlayer music;
-    private int musicTimestamp;
+    private AudioPlayer music = AudioPlayer.get();
+    private boolean flag = true;
 
     public GameFragment() {
         // Required empty public constructor
@@ -50,40 +50,50 @@ public class GameFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        try{
-            musicTimestamp = savedInstanceState.getInt("musicTimestamp");
-            System.out.println("Time stamp initialized");
-        } catch(Exception ignored) {
+        setRetainInstance(true);
 
-        }
         if (getArguments() != null) {
 
             mParam1 = getArguments().getBoolean(ARG_PARAM1, true);
             System.out.println("Arguments available. Set audio to: " + mParam1);
         }
-        music = AudioPlayer.get();
 
-        if(mParam1)
+        if(flag)
         {
+            music.setSong(GameFragment.this.getContext());
+            flag = false;
+        }
+
+
+        if (mParam1) {
+
             try{
-                music.stop();
-                music.goTo(musicTimestamp);
-                music.play(GameFragment.this.getContext());
-            }catch (Exception e) {
-                music.stop();
-                music.play(GameFragment.this.getContext());
+                if (!music.isPlaying()) {
+                    music.stop();
+                    music.play();
+                }
+            } catch(Exception ignored)
+            {
+
             }
 
         }
         else
+        {
             music.stop();
+        }
+
     }
+
+
+
 
     @Override
     public void onDestroy() {
 
 
         music.stop();
+
         super.onDestroy();
 
     }
@@ -96,30 +106,27 @@ public class GameFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_game, container, false);
     }
 
-    @Override
+    /*@Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
-        savedInstanceState.putInt("musicTimestamp",music.getTimeStamp());
         music.pause();
         System.out.println("Saved music time stamp.");
 
 
+    }*/
 
-    }
-
-    @Override
+   /* @Override
     public void onViewStateRestored(Bundle savedInstanceState) {
 
         super.onViewStateRestored(savedInstanceState);
-        try{
-            musicTimestamp = savedInstanceState.getInt("musicTimestamp");
+        try {
+
             System.out.println("Time stamp initialized in onViewStateRestored");
-        } catch (Exception ignored){
-            
+        } catch (Exception ignored) {
+
         }
 
-    }
-
+    }*/
 
 
 }

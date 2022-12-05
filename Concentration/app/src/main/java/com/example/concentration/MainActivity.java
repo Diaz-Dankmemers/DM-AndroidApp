@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity{
         getSupportActionBar().setHomeButtonEnabled(false);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
 
+
         startButton = findViewById(R.id.mStartButton);
         startButton.setOnClickListener(new View.OnClickListener() {
 
