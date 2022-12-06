@@ -192,7 +192,6 @@
                 android:layout_gravity="fill"
                 android:text="" />
         </GridLayout>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="95dp"
@@ -219,7 +218,7 @@
                 app:layout_constraintStart_toStartOf="parent" />
 
             <Button
-                android:id="@+id/button39"
+                android:id="@+id/refresh"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
@@ -227,6 +226,5 @@
                 android:text="REFRESH"
                 app:layout_constraintBottom_toBottomOf="parent" />
         </LinearLayout>
-
     </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
