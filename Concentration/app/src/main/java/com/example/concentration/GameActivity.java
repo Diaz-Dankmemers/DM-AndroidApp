@@ -64,6 +64,8 @@ public class GameActivity extends AppCompatActivity {
         fm.beginTransaction().add(R.id.fragmentContainerView2, fragment).commit();
         System.out.println("settings data added");
 
+        ScoreTrackingInterface currentScore = new ScoreTracker();
+
         score.testScores();
         System.out.println("testScores has been called");
         score.saveScores();
