@@ -134,10 +134,12 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                             if(count == 0){
                                 buttonList.get(finalI).setText(words[finalI]);
                                 clicked = buttonList.get(finalI);
+                                clicked.setEnabled(false);
                                 count++;}
                             else if(count == 1){
                                 buttonList.get(finalI).setText(words[finalI]);
                                 clicked2 = buttonList.get(finalI);
+                                clicked.setEnabled(true);
                                 count++;
                                 if(clicked.getText().toString().equals(clicked2.getText().toString())){
                                     count = 0;
