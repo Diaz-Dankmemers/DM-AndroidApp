@@ -12,6 +12,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 public class HighScoresActivity extends AppCompatActivity {
 
     private Score score;
@@ -37,41 +39,55 @@ public class HighScoresActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
                 String item = parent.getItemAtPosition(position).toString();
+                ArrayList<ScoreTracker> selectedScores = null;
 
                 switch (item) {
                     case "4 tiles": {
                         System.out.println("4 tiles selected.");
+                        selectedScores = score.getScores(0);
+                        for(int i=0; i<selectedScores.size(); i++){
+                            System.out.println(selectedScores.get(i).getName() + ": " + selectedScores.get(i).getScore());
+                        }
+
                         break;
                     }
                     case "6 tiles": {
                         System.out.println("6 tiles selected.");
+                        selectedScores = score.getScores(1);
                         break;
                     }
                     case "8 tiles": {
                         System.out.println("8 tiles selected.");
+                        selectedScores = score.getScores(2);
                         break;
                     }
                     case "10 tiles": {
                         System.out.println("10 tiles selected.");
+                        selectedScores = score.getScores(3);
                         break;
                     }case "12 tiles": {
                         System.out.println("12 tiles selected.");
+                        selectedScores = score.getScores(4);
                         break;
                     }
                     case "14 tiles": {
                         System.out.println("14 tiles selected.");
+                        selectedScores = score.getScores(5);
                         break;
                     }
                     case "16 tiles": {
                         System.out.println("16 tiles selected.");
+                        selectedScores = score.getScores(6);
                         break;
                     }
                     case "18 tiles": {
                         System.out.println("18 tiles selected.");
+                        selectedScores = score.getScores(7);
                         break;
                     }
                     case "20 tiles": {
                         System.out.println("20 tiles selected.");
+                        selectedScores = score.getScores(8);
                         break;
                     }
                 }

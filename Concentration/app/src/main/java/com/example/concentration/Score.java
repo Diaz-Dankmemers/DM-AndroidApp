@@ -37,6 +37,10 @@ public class Score {
 
     }
 
+    public ArrayList<ScoreTracker> getScores(int i){
+        return mScores.get(i);
+    }
+
     //Removes all but the three highest scores.
     private void removeLowScores(){
         for(int i=0; i<mScores.size(); i++) {

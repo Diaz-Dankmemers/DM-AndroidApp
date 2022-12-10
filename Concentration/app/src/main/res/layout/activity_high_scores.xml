@@ -31,21 +31,21 @@
         app:layout_constraintTop_toBottomOf="@+id/mHighScoresTitle">
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/scoreDisplay1"
             android:layout_width="match_parent"
             android:layout_height="75dp"
-            android:text="TextView"
+            android:text="@string/app_name"
             android:textColor="#000000" />
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/scoreDisplay2"
             android:layout_width="match_parent"
             android:layout_height="97dp"
             android:text="TextView"
             android:textColor="#000000" />
 
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/scoreDisplay3"
             android:layout_width="match_parent"
             android:layout_height="93dp"
             android:text="TextView"
