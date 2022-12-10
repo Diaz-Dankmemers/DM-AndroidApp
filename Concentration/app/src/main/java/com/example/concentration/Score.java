@@ -72,6 +72,8 @@ public class Score {
         mScores.add(s);
     }
 
+    public ArrayList<ScoreTracker> getmScores() { return  mScores;}
+
     public boolean saveScores() {
         try {
             removeLowScores();
