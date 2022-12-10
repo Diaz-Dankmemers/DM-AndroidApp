@@ -225,14 +225,14 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/newGame"
+                android:id="@+id/mNewGame"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="NEW GAME" />
 
             <Button
-                android:id="@+id/endGame"
+                android:id="@+id/mEndGame"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

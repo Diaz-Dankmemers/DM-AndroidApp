@@ -24,7 +24,7 @@ import android.widget.Button;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class GameActivity extends AppCompatActivity {
+public class GameActivity extends AppCompatActivity implements View.OnClickListener {
 
     private FragmentManager fm = getSupportFragmentManager();
     private Fragment fragment;
@@ -33,6 +33,8 @@ public class GameActivity extends AppCompatActivity {
             "PENGUIN","LION","KOALA","MONKEY","DOG","CAT","EAGLE","CAMEL","PARROT","MOOSE"};
     private ArrayList<Button> buttonList = new ArrayList<Button>();
     private int count = 0;
+    private Button endGame;
+    private Button newGame;
     Button clicked;
     Button clicked2;
 
@@ -51,6 +53,10 @@ public class GameActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
 
         score = new Score(GameActivity.this);
+        endGame = findViewById(R.id.mEndGame);
+        newGame = findViewById(R.id.mNewGame);
+        endGame.setOnClickListener(this::onClick);
+        newGame.setOnClickListener(this::onClick);
 
         System.out.println("frag creation.");
 
@@ -115,7 +121,6 @@ public class GameActivity extends AppCompatActivity {
         buttonList.add(button19);
         buttonList.add(button20);
 
-
         Collections.shuffle(buttonList);
 
 {
@@ -179,4 +184,34 @@ public class GameActivity extends AppCompatActivity {
 
         Log.i(TAG, "onSaveInstanceState");
     } //saving data across rotation, save game state on rotation
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.mEndGame: {
+
+                //show answers
+                for(int i = 0; i < 20; i++){
+                    buttonList.get(i).setText(words[i]);
+                }
+
+                //save scores
+                //back to main menu
+                break;
+            }
+            case R.id.mNewGame: {
+                fm.beginTransaction().remove(fragment).commit();
+                fragment = GameFragment.newInstance(false);
+                fm.beginTransaction().add(R.id.fragmentContainerView2,fragment).commit();
+                Intent parentActivityIntent = new Intent(GameActivity.this, SettingsActivity.class);
+                parentActivityIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
+                        Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                startActivity(parentActivityIntent);
+                finish();
+                break;
+            }
+
+        }
+    }
 }
