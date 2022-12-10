@@ -139,6 +139,11 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                                 buttonList.get(finalI).setText(words[finalI]);
                                 clicked2 = buttonList.get(finalI);
                                 count++;
+                                if(clicked.getText().toString().equals(clicked2.getText().toString())){
+                                    count = 0;
+                                    clicked.setEnabled(false);
+                                    clicked2.setEnabled(false);
+                            }
                             }
 
                         }});
