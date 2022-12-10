@@ -117,6 +117,19 @@ public class Score {
             mScores.get(i).add(new ScoreTracker(66, "POG"));
             mScores.get(i).add(new ScoreTracker(12, "BOI"));
         }
+        testScores2();
+    }
+
+    public void testScores2(){
+        mScores.get(0).add(new ScoreTracker(70, "AAA"));
+        mScores.get(1).add(new ScoreTracker(70, "BBB"));
+        mScores.get(2).add(new ScoreTracker(70, "CCC"));
+        mScores.get(3).add(new ScoreTracker(70, "DDD"));
+        mScores.get(4).add(new ScoreTracker(70, "EEE"));
+        mScores.get(5).add(new ScoreTracker(70, "FFF"));
+        mScores.get(6).add(new ScoreTracker(70, "GGG"));
+        mScores.get(7).add(new ScoreTracker(70, "HHH"));
+        mScores.get(8).add(new ScoreTracker(70, "III"));
     }
     //end data saving code - remi
 }

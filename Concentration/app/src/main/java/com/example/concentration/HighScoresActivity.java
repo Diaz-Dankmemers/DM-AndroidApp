@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -41,14 +42,16 @@ public class HighScoresActivity extends AppCompatActivity {
                 String item = parent.getItemAtPosition(position).toString();
                 ArrayList<ScoreTracker> selectedScores = null;
 
+
+                // Load and use views afterwards
+                TextView tv1 = (TextView)findViewById(R.id.scoreDisplay1);
+                TextView tv2 = (TextView)findViewById(R.id.scoreDisplay2);
+                TextView tv3 = (TextView)findViewById(R.id.scoreDisplay3);
+
                 switch (item) {
                     case "4 tiles": {
                         System.out.println("4 tiles selected.");
                         selectedScores = score.getScores(0);
-                        for(int i=0; i<selectedScores.size(); i++){
-                            System.out.println(selectedScores.get(i).getName() + ": " + selectedScores.get(i).getScore());
-                        }
-
                         break;
                     }
                     case "6 tiles": {
@@ -91,6 +94,9 @@ public class HighScoresActivity extends AppCompatActivity {
                         break;
                     }
                 }
+                tv1.setText(selectedScores.get(0).getName() + ": " + selectedScores.get(0).getScore());
+                tv2.setText(selectedScores.get(1).getName() + ": " + selectedScores.get(1).getScore());
+                tv3.setText(selectedScores.get(2).getName() + ": " + selectedScores.get(2).getScore());
             }
 
             @Override
