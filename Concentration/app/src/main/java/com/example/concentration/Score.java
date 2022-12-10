@@ -15,7 +15,8 @@ public class Score {
     private static final String TAG = "GameActivity";
     private static final String FILENAME = "scores.json";
 
-    private ArrayList<ScoreTracker> mScores;
+    private ArrayList<ArrayList<ScoreTracker>> mScores;
+    //private ArrayList<ScoreTracker> mScores;
     private ScoresJSONSerializer mSerializer;
 
     private static GameActivity sGameActivity;
@@ -30,7 +31,7 @@ public class Score {
             mScores = mSerializer.loadScores();
         } catch (Exception e)
         {
-            mScores = new ArrayList<ScoreTracker>();
+            mScores = new ArrayList<ArrayList<ScoreTracker>>();
             Log.e(TAG, "Error loading scores: ", e);
         }
 
@@ -38,41 +39,45 @@ public class Score {
 
     //Removes all but the three highest scores.
     private void removeLowScores(){
-        while(mScores.size() > 3) {
-            int lowest = Integer.MAX_VALUE;
-            int index = 0;
-            for (int i = 0; i < mScores.size(); i++) {
-                if (mScores.get(i).getScore() < lowest) {
-                    index = i;
-                    lowest = mScores.get(i).getScore();
+        for(int i=0; i<mScores.size(); i++) {
+            while (mScores.get(i).size() > 3) {
+                int lowest = Integer.MAX_VALUE;
+                int index = 0;
+                for (int j = 0; j < mScores.get(i).size(); j++) {
+                    if (mScores.get(i).get(j).getScore() < lowest) {
+                        index = j;
+                        lowest = mScores.get(i).get(j).getScore();
+                    }
                 }
+                mScores.get(i).remove(index);
             }
-            mScores.remove(index);
         }
     }
 
     private void sortScores(){
-        ArrayList<ScoreTracker> sorted = new ArrayList<>();
-        while(!mScores.isEmpty()){
-            int highest = Integer.MIN_VALUE;
-            int index = 0;
-            for (int i=0; i<mScores.size(); i++){
-                if (mScores.get(i).getScore() > highest){
-                    index = i;
-                    highest = mScores.get(i).getScore();
+        for(int i=0; i<mScores.size(); i++) {
+            ArrayList<ScoreTracker> sorted = new ArrayList<>();
+            while (!mScores.get(i).isEmpty()) {
+                int highest = Integer.MIN_VALUE;
+                int index = 0;
+                for (int j = 0; j < mScores.get(i).size(); j++) {
+                    if (mScores.get(i).get(j).getScore() > highest) {
+                        index = j;
+                        highest = mScores.get(i).get(j).getScore();
+                    }
                 }
+                sorted.add(mScores.get(i).remove(index));
             }
-            sorted.add(mScores.remove(index));
+            mScores.set(i, sorted);
         }
-        mScores = sorted;
     }
 
-    public void addScore(ScoreTracker s)
+    public void addScore(int i, ScoreTracker s)
     {
-        mScores.add(s);
+        mScores.get(i).add(s);
     }
 
-    public ArrayList<ScoreTracker> getmScores() { return  mScores;}
+    public ArrayList<ArrayList<ScoreTracker>> getmScores() { return  mScores;}
 
     public boolean saveScores() {
         try {
@@ -88,20 +93,26 @@ public class Score {
     }
 
     public void resetScores(){
-        mScores = new ArrayList<ScoreTracker>();
-        mScores.add(new ScoreTracker());
-        mScores.add(new ScoreTracker());
-        mScores.add(new ScoreTracker());
+        mScores = new ArrayList<>();
+        for(int i=0; i<9; i++) {
+            ArrayList<ScoreTracker> iScores = new ArrayList<>();
+            iScores.add(new ScoreTracker());
+            iScores.add(new ScoreTracker());
+            iScores.add(new ScoreTracker());
+            mScores.add(iScores);
+        }
     }
 
     public void testScores(){
         resetScores();
-        mScores.add(new ScoreTracker(50, "DAN"));
-        mScores.add(new ScoreTracker());
-        mScores.add(new ScoreTracker());
-        mScores.add(new ScoreTracker(20, "JEF"));
-        mScores.add(new ScoreTracker(66, "POG"));
-        mScores.add(new ScoreTracker(12, "BOI"));
+        for(int i=0; i<mScores.size(); i++) {
+            mScores.get(i).add(new ScoreTracker(50, "DAN"));
+            mScores.get(i).add(new ScoreTracker());
+            mScores.get(i).add(new ScoreTracker());
+            mScores.get(i).add(new ScoreTracker(20, "JEF"));
+            mScores.get(i).add(new ScoreTracker(66, "POG"));
+            mScores.get(i).add(new ScoreTracker(12, "BOI"));
+        }
     }
     //end data saving code - remi
 }
