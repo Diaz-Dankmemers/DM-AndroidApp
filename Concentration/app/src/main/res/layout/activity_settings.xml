@@ -41,65 +41,69 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <RadioButton
-            android:id="@+id/radioButton2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="2" />
 
         <RadioButton
             android:id="@+id/radioButton3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="4" />
+            android:text="4"
+            android:onClick="onRadioButtonClicked"/>
 
         <RadioButton
             android:id="@+id/radioButton4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="6" />
+            android:text="6"
+            android:onClick="onRadioButtonClicked"/>
 
         <RadioButton
             android:id="@+id/radioButton5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="8" />
+            android:text="8"
+            android:onClick="onRadioButtonClicked"/>
 
         <RadioButton
             android:id="@+id/radioButton6"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="10" />
+            android:text="10"
+            android:onClick="onRadioButtonClicked"/>
 
         <RadioButton
             android:id="@+id/radioButton7"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="12" />
+            android:text="12"
+            android:onClick="onRadioButtonClicked"/>
 
         <RadioButton
             android:id="@+id/radioButton8"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="14" />
+            android:text="14"
+            android:onClick="onRadioButtonClicked"/>
 
         <RadioButton
             android:id="@+id/radioButton9"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="16" />
+            android:text="16"
+            android:onClick="onRadioButtonClicked"/>
 
         <RadioButton
             android:id="@+id/radioButton10"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="18" />
+            android:text="18"
+            android:onClick="onRadioButtonClicked"/>
 
         <RadioButton
             android:id="@+id/radioButton11"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="20" />
+            android:text="20"
+            android:onClick="onRadioButtonClicked"/>
     </RadioGroup>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.RadioButton;
 import android.widget.Switch;
 
 import com.google.android.material.tooltip.TooltipDrawable;
@@ -28,6 +29,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
     private Switch audioButton;
     private Intent settingsDataForGame;
     private boolean audio;
+    private int tiles;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -48,6 +50,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
 
         settingsDataForGame = new Intent(SettingsActivity.this, GameActivity.class);
         audio = false;
+
 
     }
 
@@ -77,6 +80,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
             case R.id.mPlayButton: {
                 System.out.println("Settings passed: " + audio);
                 settingsDataForGame.putExtra("audio", audio);
+                settingsDataForGame.putExtra("tiles", tiles);
                 startActivity(settingsDataForGame);
             }
 
@@ -99,5 +103,51 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
             }
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void onRadioButtonClicked(View view) {
+        // Is the button now checked?
+        boolean checked = ((RadioButton) view).isChecked();
+
+        // Check which radio button was clicked
+        switch(view.getId()) {
+            case R.id.radioButton3:
+                if (checked)
+                    tiles = 4;
+                    break;
+            case R.id.radioButton4:
+                if (checked)
+                    tiles = 6;
+                    break;
+            case R.id.radioButton5:
+                if (checked)
+                    tiles = 8;
+                    break;
+            case R.id.radioButton6:
+                if (checked)
+                    tiles = 10;
+                    break;
+            case R.id.radioButton7:
+                if (checked)
+                    tiles = 12;
+                    break;
+            case R.id.radioButton8:
+                if (checked)
+                    tiles = 14;
+                    break;
+            case R.id.radioButton9:
+                if (checked)
+                    tiles = 16;
+                    break;
+            case R.id.radioButton10:
+                if (checked)
+                    tiles = 18;
+                    break;
+            case R.id.radioButton11:
+                if (checked)
+                    tiles = 20;
+                    break;
+
+        }
     }
 }

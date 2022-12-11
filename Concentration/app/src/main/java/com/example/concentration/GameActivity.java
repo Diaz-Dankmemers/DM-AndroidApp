@@ -121,6 +121,30 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         buttonList.add(button19);
         buttonList.add(button20);
 
+        int gametiles = getIntent().getIntExtra("tiles", 20);
+        switch(gametiles)
+        {
+            case 4:
+                button1.setEnabled(false);
+            case 6:
+                button1.setEnabled(false);
+            case 8:
+                button1.setEnabled(false);
+            case 10:
+                button1.setEnabled(false);
+            case 12:
+                button1.setEnabled(false);
+            case 14:
+                button1.setEnabled(false);
+            case 16:
+                button1.setEnabled(false);
+            case 18:
+                button1.setEnabled(false);
+            case 20:
+                button1.setEnabled(false);
+
+        }
+
         Collections.shuffle(buttonList);
 
 {
