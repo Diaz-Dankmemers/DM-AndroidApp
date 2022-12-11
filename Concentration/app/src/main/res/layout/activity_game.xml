@@ -240,11 +240,6 @@
             android:layout_marginBottom="48dp"
             android:text="Score: " />
 
-        <TextView
-            android:id="@+id/scoreDisplayGame"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
     </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
