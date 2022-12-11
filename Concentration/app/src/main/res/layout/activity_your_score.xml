@@ -28,9 +28,9 @@
         android:text="@string/back_to_main_menu"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.508"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/yourScoreDisplay" />
+        app:layout_constraintTop_toBottomOf="@+id/yourScoreDisplay"
+        app:layout_constraintVertical_bias="0.73" />
 
     <TextView
         android:id="@+id/textView4"
@@ -48,7 +48,8 @@
         android:id="@+id/editTextTextPersonName"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginTop="308dp"
+        android:layout_marginTop="406dp"
+        android:layout_marginBottom="25dp"
         android:ems="10"
         android:hint="Insert Name (3 Letters)"
         android:inputType="textPersonName"
@@ -56,11 +57,22 @@
         android:saveEnabled="true"
         android:singleLine="true"
         android:textAllCaps="true"
-        app:layout_constraintBottom_toTopOf="@id/mMainMenu"
+        app:layout_constraintBottom_toTopOf="@+id/submitButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/yourScoreDisplay"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/submitButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="37dp"
+        android:layout_marginBottom="202dp"
+        android:saveEnabled="true"
+        android:text="Submit"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/mMainMenu"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -159,6 +159,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 button18.setVisibility(View.INVISIBLE);
                 button19.setVisibility(View.INVISIBLE);
                 button20.setVisibility(View.INVISIBLE);
+                break;
             case 6:
                 gameNum = 1;
                 button4.setEnabled(false);
@@ -189,6 +190,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 button18.setVisibility(View.INVISIBLE);
                 button19.setVisibility(View.INVISIBLE);
                 button20.setVisibility(View.INVISIBLE);
+                break;
             case 8:
                 gameNum = 2;
                 button5.setEnabled(false);
@@ -215,6 +217,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 button18.setVisibility(View.INVISIBLE);
                 button19.setVisibility(View.INVISIBLE);
                 button20.setVisibility(View.INVISIBLE);
+                break;
             case 10:
                 gameNum = 3;
                 button1.setEnabled(false);
@@ -237,6 +240,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 button18.setVisibility(View.INVISIBLE);
                 button19.setVisibility(View.INVISIBLE);
                 button20.setVisibility(View.INVISIBLE);
+                break;
             case 12:
                 gameNum = 4;
                 button8.setEnabled(false);
@@ -255,6 +259,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 button18.setVisibility(View.INVISIBLE);
                 button19.setVisibility(View.INVISIBLE);
                 button20.setVisibility(View.INVISIBLE);
+                break;
             case 14:
                 gameNum = 5;
                 button12.setEnabled(false);
@@ -269,6 +274,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 button18.setVisibility(View.INVISIBLE);
                 button19.setVisibility(View.INVISIBLE);
                 button20.setVisibility(View.INVISIBLE);
+                break;
             case 16:
                 gameNum = 6;
                 button16.setEnabled(false);
@@ -279,14 +285,17 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 button17.setVisibility(View.INVISIBLE);
                 button19.setVisibility(View.INVISIBLE);
                 button20.setVisibility(View.INVISIBLE);
+                break;
             case 18:
                 gameNum = 7;
                 button17.setEnabled(false);
                 button20.setEnabled(false);
                 button17.setVisibility(View.INVISIBLE);
                 button20.setVisibility(View.INVISIBLE);
+                break;
             case 20:
                 gameNum = 8;
+                break;
 
         }
 
