@@ -14,6 +14,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -23,6 +24,7 @@ import android.widget.Button;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.concurrent.TimeUnit;
 
 public class GameActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -156,11 +158,18 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                             if(count == 0){
                                 buttonList.get(finalI).setText(words[finalI]);
                                 clicked = buttonList.get(finalI);
+                                clicked.setEnabled(false);
                                 count++;}
                             else if(count == 1){
                                 buttonList.get(finalI).setText(words[finalI]);
                                 clicked2 = buttonList.get(finalI);
+                                clicked.setEnabled(true);
                                 count++;
+                                if(clicked.getText().toString().equals(clicked2.getText().toString())){
+                                    count = 0;
+                                    clicked.setEnabled(false);
+                                    clicked2.setEnabled(false);
+                            }
                             }
 
                         }});
@@ -217,10 +226,24 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 //show answers
                 for(int i = 0; i < 20; i++){
                     buttonList.get(i).setText(words[i]);
+
                 }
 
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Intent parentActivityIntent = new Intent(GameActivity.this, YourScoreActivity.class);
+                        parentActivityIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
+                                Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                        startActivity(parentActivityIntent);
+                        finish();
+                    }
+                }, 1200);
                 //save scores
-                //back to main menu
+                //go to your score display
+
                 break;
             }
             case R.id.mNewGame: {
