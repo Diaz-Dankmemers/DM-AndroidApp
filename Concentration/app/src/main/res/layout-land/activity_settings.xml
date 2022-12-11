@@ -51,7 +51,8 @@
             android:layout_height="wrap_content"
             android:minHeight="48dp"
             android:onClick="onRadioButtonClicked"
-            android:text="@string/_4" />
+            android:text="@string/_4"
+            tools:ignore="TouchTargetSizeCheck" />
 
         <RadioButton
             android:id="@+id/radioButton4"
@@ -59,7 +60,8 @@
             android:layout_height="wrap_content"
             android:minHeight="48dp"
             android:onClick="onRadioButtonClicked"
-            android:text="@string/_6" />
+            android:text="@string/_6"
+            tools:ignore="TouchTargetSizeCheck" />
 
         <RadioButton
             android:id="@+id/radioButton5"
@@ -67,7 +69,8 @@
             android:layout_height="wrap_content"
             android:minHeight="48dp"
             android:onClick="onRadioButtonClicked"
-            android:text="@string/_8" />
+            android:text="@string/_8"
+            tools:ignore="TouchTargetSizeCheck" />
 
         <RadioButton
             android:id="@+id/radioButton6"
