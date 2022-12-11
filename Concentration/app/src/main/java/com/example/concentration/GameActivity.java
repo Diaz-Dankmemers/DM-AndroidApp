@@ -2,29 +2,21 @@ package com.example.concentration;
 
 import static android.content.ContentValues.TAG;
 
-import static com.example.concentration.R.id.refresh;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProvider;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.concurrent.TimeUnit;
 
 public class GameActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -42,8 +34,10 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     //moved data saving to Score.java
 
-
-
+    //code for handling scores
+    public int gameNum = -1;
+    public static ScoreTrackingInterface newScore = new ScoreTracker();
+    TextView tv1;
 
 
     @Override
@@ -73,6 +67,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         System.out.println("settings data added");
 
         ScoreTrackingInterface currentScore = new ScoreTracker();
+
+
 
         score.testScores();
         System.out.println("testScores has been called");
@@ -123,10 +119,14 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         buttonList.add(button19);
         buttonList.add(button20);
 
+        tv1 = (TextView)findViewById(R.id.scoreDisplayGame);
+        tv1.setText("Score: "+newScore.getScore());
+
         int gametiles = getIntent().getIntExtra("tiles", 20);
         switch(gametiles)
         {
             case 4:
+                gameNum = 0;
                 button2.setEnabled(false);
                 button4.setEnabled(false);
                 button5.setEnabled(false);
@@ -160,6 +160,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 button19.setVisibility(View.INVISIBLE);
                 button20.setVisibility(View.INVISIBLE);
             case 6:
+                gameNum = 1;
                 button4.setEnabled(false);
                 button5.setEnabled(false);
                 button1.setEnabled(false);
@@ -189,6 +190,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 button19.setVisibility(View.INVISIBLE);
                 button20.setVisibility(View.INVISIBLE);
             case 8:
+                gameNum = 2;
                 button5.setEnabled(false);
                 button1.setEnabled(false);
                 button7.setEnabled(false);
@@ -214,6 +216,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 button19.setVisibility(View.INVISIBLE);
                 button20.setVisibility(View.INVISIBLE);
             case 10:
+                gameNum = 3;
                 button1.setEnabled(false);
                 button7.setEnabled(false);
                 button8.setEnabled(false);
@@ -235,6 +238,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 button19.setVisibility(View.INVISIBLE);
                 button20.setVisibility(View.INVISIBLE);
             case 12:
+                gameNum = 4;
                 button8.setEnabled(false);
                 button11.setEnabled(false);
                 button12.setEnabled(false);
@@ -252,6 +256,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 button19.setVisibility(View.INVISIBLE);
                 button20.setVisibility(View.INVISIBLE);
             case 14:
+                gameNum = 5;
                 button12.setEnabled(false);
                 button16.setEnabled(false);
                 button17.setEnabled(false);
@@ -265,6 +270,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 button19.setVisibility(View.INVISIBLE);
                 button20.setVisibility(View.INVISIBLE);
             case 16:
+                gameNum = 6;
                 button16.setEnabled(false);
                 button17.setEnabled(false);
                 button19.setEnabled(false);
@@ -274,11 +280,13 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 button19.setVisibility(View.INVISIBLE);
                 button20.setVisibility(View.INVISIBLE);
             case 18:
+                gameNum = 7;
                 button17.setEnabled(false);
                 button20.setEnabled(false);
                 button17.setVisibility(View.INVISIBLE);
                 button20.setVisibility(View.INVISIBLE);
             case 20:
+                gameNum = 8;
 
         }
 
@@ -304,10 +312,15 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                                     count = 0;
                                     clicked.setEnabled(false);
                                     clicked2.setEnabled(false);
-                            }
+                                    newScore.addScore(2);
+                                } else {
+                                    newScore.addScore(-1);
+                                }
+                                tv1.setText("Score: "+newScore.getScore());
                             }
 
-                        }});
+                        }
+                    });
                 }
             }
 
@@ -376,7 +389,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                         finish();
                     }
                 }, 1200);
-                //save scores
+                //save scores code below
+                score.addScore(gameNum, newScore);
                 //go to your score display
 
                 break;

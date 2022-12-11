@@ -76,9 +76,9 @@ public class Score {
         }
     }
 
-    public void addScore(int i, ScoreTracker s)
+    public void addScore(int i, ScoreTrackingInterface s)
     {
-        mScores.get(i).add(s);
+        mScores.get(i).add((ScoreTracker) s);
     }
 
     public ArrayList<ArrayList<ScoreTracker>> getmScores() { return  mScores;}

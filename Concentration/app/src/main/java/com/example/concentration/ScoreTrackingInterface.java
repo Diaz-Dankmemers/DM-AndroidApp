@@ -10,8 +10,8 @@ public interface ScoreTrackingInterface {
     public String getName();
 
     /**
-     * Gets the name of the person in the score position
-     * @param newName the position in the scores.txt file
+     * Sets the name of the person in the score position
+     * @param newName the name of the person in the scores.txt file
      * @return String the name of the person in position
      */
     public void setName(String newName);
