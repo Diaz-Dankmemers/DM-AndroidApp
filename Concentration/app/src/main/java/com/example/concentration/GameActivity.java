@@ -2,10 +2,6 @@ package com.example.concentration;
 
 import static android.content.ContentValues.TAG;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
@@ -16,21 +12,31 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class GameActivity extends AppCompatActivity implements View.OnClickListener {
 
     private FragmentManager fm = getSupportFragmentManager();
     private Fragment fragment;
     private Score score;
-    private String words[] = {"KOALA","LION","EAGLE","PENGUIN","MOOSE","CAMEL","KOALA","DOG","LION","MOOSE","DOG","PARROT","EAGLE","CAMEL","PENGUIN","MONKEY","CAT","PARROT","MONKEY","CAT"};
-
+    private final String[] words1 = {"KOALA", "LION", "EAGLE", "PENGUIN", "MOOSE", "CAMEL", "PARROT", "DOG", "MONKEY", "CAT"};
+    private boolean[] clickedOn;
     private ArrayList<Button> buttonList = new ArrayList<Button>();
     private int count = 0;
     private Button endGame;
     private Button newGame;
+    private Button refresh;
+    private boolean flag;
+    private int clickedID, clickedID2;
     Button clicked;
     Button clicked2;
+
 
     //moved data saving to Score.java
 
@@ -51,8 +57,32 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         score = new Score(GameActivity.this);
         endGame = findViewById(R.id.mEndGame);
         newGame = findViewById(R.id.mNewGame);
+        refresh = findViewById(R.id.mRestart);
         endGame.setOnClickListener(this::onClick);
         newGame.setOnClickListener(this::onClick);
+        refresh.setOnClickListener(this::onClick);
+        try {
+            flag = savedInstanceState.getBoolean("flag");
+        } catch (Exception e) {
+            flag = true;
+        }
+        try {
+            clickedOn = savedInstanceState.getBooleanArray("matched");
+        } catch (Exception e) {
+            clickedOn = new boolean[]{false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false,};
+        }
+        try {
+            clickedID = savedInstanceState.getInt("ID");
+            System.out.println("Clicked ID: " + clickedID);
+            clickedID2 = savedInstanceState.getInt("ID2");
+            System.out.println("Clicked ID2: " + clickedID2);
+            clicked = findViewById(clickedID);
+            clicked2 = findViewById(clickedID2);
+
+            System.out.println("Clicked2 ID: " + clicked2.getId());
+        } catch (Exception e) {
+
+        }
 
         System.out.println("frag creation.");
 
@@ -96,7 +126,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         Button button18 = (Button) findViewById(R.id.button18);
         Button button19 = (Button) findViewById(R.id.button19);
         Button button20 = (Button) findViewById(R.id.button20);
-        Button button21 = (Button) findViewById(R.id.refresh);
+
 
         buttonList.add(button1);
         buttonList.add(button2);
@@ -119,179 +149,357 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         buttonList.add(button19);
         buttonList.add(button20);
 
-        tv1 = (TextView)findViewById(R.id.scoreDisplayGame);
+        tv1 = (TextView)findViewById(R.id.mScoreDisplayGame);
         tv1.setText("Score: "+newScore.getScore());
 
-        int gametiles = getIntent().getIntExtra("tiles", 20);
-        switch(gametiles)
+        int gameTiles = getIntent().getIntExtra("tiles", 20);
+        switch(gameTiles)
         {
             case 4:
                 gameNum = 0;
+                /*button1.setEnabled(false);
                 button2.setEnabled(false);
-                button4.setEnabled(false);
+                button3.setEnabled(false);
+                button4.setEnabled(false);*/
                 button5.setEnabled(false);
-                button1.setEnabled(false);
+                button6.setEnabled(false);
                 button7.setEnabled(false);
                 button8.setEnabled(false);
                 button9.setEnabled(false);
                 button10.setEnabled(false);
                 button11.setEnabled(false);
                 button12.setEnabled(false);
+                button13.setEnabled(false);
+                button14.setEnabled(false);
                 button15.setEnabled(false);
                 button16.setEnabled(false);
                 button17.setEnabled(false);
                 button18.setEnabled(false);
                 button19.setEnabled(false);
                 button20.setEnabled(false);
-                button2.setVisibility(View.INVISIBLE);
-                button4.setVisibility(View.INVISIBLE);
-                button5.setVisibility(View.INVISIBLE);
-                button1.setVisibility(View.INVISIBLE);
-                button7.setVisibility(View.INVISIBLE);
-                button8.setVisibility(View.INVISIBLE);
-                button9.setVisibility(View.INVISIBLE);
-                button10.setVisibility(View.INVISIBLE);
-                button11.setVisibility(View.INVISIBLE);
-                button12.setVisibility(View.INVISIBLE);
-                button15.setVisibility(View.INVISIBLE);
-                button16.setVisibility(View.INVISIBLE);
-                button17.setVisibility(View.INVISIBLE);
-                button18.setVisibility(View.INVISIBLE);
-                button19.setVisibility(View.INVISIBLE);
-                button20.setVisibility(View.INVISIBLE);
+                /*button1.setVisibility(View.GONE);
+                button2.setVisibility(View.GONE);
+                button3.setVisibility(View.GONE);
+                button4.setVisibility(View.GONE);*/
+                button5.setVisibility(View.GONE);
+                button6.setVisibility(View.GONE);
+                button7.setVisibility(View.GONE);
+                button8.setVisibility(View.GONE);
+                button9.setVisibility(View.GONE);
+                button10.setVisibility(View.GONE);
+                button11.setVisibility(View.GONE);
+                button12.setVisibility(View.GONE);
+                button13.setVisibility(View.GONE);
+                button14.setVisibility(View.GONE);
+                button15.setVisibility(View.GONE);
+                button16.setVisibility(View.GONE);
+                button17.setVisibility(View.GONE);
+                button18.setVisibility(View.GONE);
+                button19.setVisibility(View.GONE);
+                button20.setVisibility(View.GONE);
+                break;
                 break;
             case 6:
                 gameNum = 1;
+                /*button1.setEnabled(false);
+                button2.setEnabled(false);
+                button3.setEnabled(false);
                 button4.setEnabled(false);
                 button5.setEnabled(false);
-                button1.setEnabled(false);
+                button6.setEnabled(false);*/
                 button7.setEnabled(false);
                 button8.setEnabled(false);
+                button9.setEnabled(false);
                 button10.setEnabled(false);
                 button11.setEnabled(false);
                 button12.setEnabled(false);
+                button13.setEnabled(false);
+                button14.setEnabled(false);
                 button15.setEnabled(false);
                 button16.setEnabled(false);
                 button17.setEnabled(false);
                 button18.setEnabled(false);
                 button19.setEnabled(false);
                 button20.setEnabled(false);
-                button4.setVisibility(View.INVISIBLE);
-                button5.setVisibility(View.INVISIBLE);
-                button1.setVisibility(View.INVISIBLE);
-                button7.setVisibility(View.INVISIBLE);
-                button8.setVisibility(View.INVISIBLE);
-                button10.setVisibility(View.INVISIBLE);
-                button11.setVisibility(View.INVISIBLE);
-                button12.setVisibility(View.INVISIBLE);
-                button15.setVisibility(View.INVISIBLE);
-                button16.setVisibility(View.INVISIBLE);
-                button17.setVisibility(View.INVISIBLE);
-                button18.setVisibility(View.INVISIBLE);
-                button19.setVisibility(View.INVISIBLE);
-                button20.setVisibility(View.INVISIBLE);
+                /*button1.setVisibility(View.GONE);
+                button2.setVisibility(View.GONE);
+                button3.setVisibility(View.GONE);
+                button4.setVisibility(View.GONE);
+                button5.setVisibility(View.GONE);
+                button6.setVisibility(View.GONE);*/
+                button7.setVisibility(View.GONE);
+                button8.setVisibility(View.GONE);
+                button9.setVisibility(View.GONE);
+                button10.setVisibility(View.GONE);
+                button11.setVisibility(View.GONE);
+                button12.setVisibility(View.GONE);
+                button13.setVisibility(View.GONE);
+                button14.setVisibility(View.GONE);
+                button15.setVisibility(View.GONE);
+                button16.setVisibility(View.GONE);
+                button17.setVisibility(View.GONE);
+                button18.setVisibility(View.GONE);
+                button19.setVisibility(View.GONE);
+                button20.setVisibility(View.GONE);
                 break;
             case 8:
                 gameNum = 2;
+                /*button1.setEnabled(false);
+                button2.setEnabled(false);
+                button3.setEnabled(false);
+                button4.setEnabled(false);
                 button5.setEnabled(false);
-                button1.setEnabled(false);
+                button6.setEnabled(false);
                 button7.setEnabled(false);
-                button8.setEnabled(false);
+                button8.setEnabled(false);*/
+                button9.setEnabled(false);
                 button10.setEnabled(false);
                 button11.setEnabled(false);
                 button12.setEnabled(false);
+                button13.setEnabled(false);
+                button14.setEnabled(false);
+                button15.setEnabled(false);
                 button16.setEnabled(false);
                 button17.setEnabled(false);
                 button18.setEnabled(false);
                 button19.setEnabled(false);
                 button20.setEnabled(false);
-                button5.setVisibility(View.INVISIBLE);
-                button1.setVisibility(View.INVISIBLE);
-                button7.setVisibility(View.INVISIBLE);
-                button8.setVisibility(View.INVISIBLE);
-                button10.setVisibility(View.INVISIBLE);
-                button11.setVisibility(View.INVISIBLE);
-                button12.setVisibility(View.INVISIBLE);
-                button16.setVisibility(View.INVISIBLE);
-                button17.setVisibility(View.INVISIBLE);
-                button18.setVisibility(View.INVISIBLE);
-                button19.setVisibility(View.INVISIBLE);
-                button20.setVisibility(View.INVISIBLE);
+                /*button1.setVisibility(View.GONE);
+                button2.setVisibility(View.GONE);
+                button3.setVisibility(View.GONE);
+                button4.setVisibility(View.GONE);
+                button5.setVisibility(View.GONE);
+                button6.setVisibility(View.GONE);
+                button7.setVisibility(View.GONE);
+                button8.setVisibility(View.GONE);*/
+                button9.setVisibility(View.GONE);
+                button10.setVisibility(View.GONE);
+                button11.setVisibility(View.GONE);
+                button12.setVisibility(View.GONE);
+                button13.setVisibility(View.GONE);
+                button14.setVisibility(View.GONE);
+                button15.setVisibility(View.GONE);
+                button16.setVisibility(View.GONE);
+                button17.setVisibility(View.GONE);
+                button18.setVisibility(View.GONE);
+                button19.setVisibility(View.GONE);
+                button20.setVisibility(View.GONE);
                 break;
             case 10:
                 gameNum = 3;
-                button1.setEnabled(false);
+                /*button1.setEnabled(false);
+                button2.setEnabled(false);
+                button3.setEnabled(false);
+                button4.setEnabled(false);
+                button5.setEnabled(false);
+                button6.setEnabled(false);
                 button7.setEnabled(false);
                 button8.setEnabled(false);
+                button9.setEnabled(false);
+                button10.setEnabled(false);*/
                 button11.setEnabled(false);
                 button12.setEnabled(false);
+                button13.setEnabled(false);
+                button14.setEnabled(false);
+                button15.setEnabled(false);
                 button16.setEnabled(false);
                 button17.setEnabled(false);
                 button18.setEnabled(false);
                 button19.setEnabled(false);
                 button20.setEnabled(false);
-                button1.setVisibility(View.INVISIBLE);
-                button7.setVisibility(View.INVISIBLE);
-                button8.setVisibility(View.INVISIBLE);
-                button11.setVisibility(View.INVISIBLE);
-                button12.setVisibility(View.INVISIBLE);
-                button16.setVisibility(View.INVISIBLE);
-                button17.setVisibility(View.INVISIBLE);
-                button18.setVisibility(View.INVISIBLE);
-                button19.setVisibility(View.INVISIBLE);
-                button20.setVisibility(View.INVISIBLE);
+                /*button1.setVisibility(View.GONE);
+                button2.setVisibility(View.GONE);
+                button3.setVisibility(View.GONE);
+                button4.setVisibility(View.GONE);
+                button5.setVisibility(View.GONE);
+                button6.setVisibility(View.GONE);
+                button7.setVisibility(View.GONE);
+                button8.setVisibility(View.GONE);
+                button9.setVisibility(View.GONE);
+                button10.setVisibility(View.GONE);*/
+                button11.setVisibility(View.GONE);
+                button12.setVisibility(View.GONE);
+                button13.setVisibility(View.GONE);
+                button14.setVisibility(View.GONE);
+                button15.setVisibility(View.GONE);
+                button16.setVisibility(View.GONE);
+                button17.setVisibility(View.GONE);
+                button18.setVisibility(View.GONE);
+                button19.setVisibility(View.GONE);
+                button20.setVisibility(View.GONE);
                 break;
             case 12:
                 gameNum = 4;
+               /* button1.setEnabled(false);
+                button2.setEnabled(false);
+                button3.setEnabled(false);
+                button4.setEnabled(false);
+                button5.setEnabled(false);
+                button6.setEnabled(false);
+                button7.setEnabled(false);
                 button8.setEnabled(false);
+                button9.setEnabled(false);
+                button10.setEnabled(false);
                 button11.setEnabled(false);
-                button12.setEnabled(false);
+                button12.setEnabled(false);*/
+                button13.setEnabled(false);
+                button14.setEnabled(false);
+                button15.setEnabled(false);
                 button16.setEnabled(false);
                 button17.setEnabled(false);
                 button18.setEnabled(false);
                 button19.setEnabled(false);
                 button20.setEnabled(false);
-                button8.setVisibility(View.INVISIBLE);
-                button11.setVisibility(View.INVISIBLE);
-                button12.setVisibility(View.INVISIBLE);
-                button16.setVisibility(View.INVISIBLE);
-                button17.setVisibility(View.INVISIBLE);
-                button18.setVisibility(View.INVISIBLE);
-                button19.setVisibility(View.INVISIBLE);
-                button20.setVisibility(View.INVISIBLE);
+                /*button1.setVisibility(View.GONE);
+                button2.setVisibility(View.GONE);
+                button3.setVisibility(View.GONE);
+                button4.setVisibility(View.GONE);
+                button5.setVisibility(View.GONE);
+                button6.setVisibility(View.GONE);
+                button7.setVisibility(View.GONE);
+                button8.setVisibility(View.GONE);
+                button9.setVisibility(View.GONE);
+                button10.setVisibility(View.GONE);
+                button11.setVisibility(View.GONE);
+                button12.setVisibility(View.GONE);*/
+                button13.setVisibility(View.GONE);
+                button14.setVisibility(View.GONE);
+                button15.setVisibility(View.GONE);
+                button16.setVisibility(View.GONE);
+                button17.setVisibility(View.GONE);
+                button18.setVisibility(View.GONE);
+                button19.setVisibility(View.GONE);
+                button20.setVisibility(View.GONE);
                 break;
             case 14:
                 gameNum = 5;
+               /* button1.setEnabled(false);
+                button2.setEnabled(false);
+                button3.setEnabled(false);
+                button4.setEnabled(false);
+                button5.setEnabled(false);
+                button6.setEnabled(false);
+                button7.setEnabled(false);
+                button8.setEnabled(false);
+                button9.setEnabled(false);
+                button10.setEnabled(false);
+                button11.setEnabled(false);
                 button12.setEnabled(false);
+                button13.setEnabled(false);
+                button14.setEnabled(false);*/
+                button15.setEnabled(false);
                 button16.setEnabled(false);
                 button17.setEnabled(false);
                 button18.setEnabled(false);
                 button19.setEnabled(false);
                 button20.setEnabled(false);
-                button12.setVisibility(View.INVISIBLE);
-                button16.setVisibility(View.INVISIBLE);
-                button17.setVisibility(View.INVISIBLE);
-                button18.setVisibility(View.INVISIBLE);
-                button19.setVisibility(View.INVISIBLE);
-                button20.setVisibility(View.INVISIBLE);
+                /*button1.setVisibility(View.GONE);
+                button2.setVisibility(View.GONE);
+                button3.setVisibility(View.GONE);
+                button4.setVisibility(View.GONE);
+                button5.setVisibility(View.GONE);
+                button6.setVisibility(View.GONE);
+                button7.setVisibility(View.GONE);
+                button8.setVisibility(View.GONE);
+                button9.setVisibility(View.GONE);
+                button10.setVisibility(View.GONE);
+                button11.setVisibility(View.GONE);
+                button12.setVisibility(View.GONE);
+                button13.setVisibility(View.GONE);
+                button14.setVisibility(View.GONE);*/
+                button15.setVisibility(View.GONE);
+                button16.setVisibility(View.GONE);
+                button17.setVisibility(View.GONE);
+                button18.setVisibility(View.GONE);
+                button19.setVisibility(View.GONE);
+                button20.setVisibility(View.GONE);
                 break;
             case 16:
                 gameNum = 6;
+               /* button1.setEnabled(false);
+                button2.setEnabled(false);
+                button3.setEnabled(false);
+                button4.setEnabled(false);
+                button5.setEnabled(false);
+                button6.setEnabled(false);
+                button7.setEnabled(false);
+                button8.setEnabled(false);
+                button9.setEnabled(false);
+                button10.setEnabled(false);
+                button11.setEnabled(false);
+                button12.setEnabled(false);
+                button13.setEnabled(false);
+                button14.setEnabled(false);
+                button15.setEnabled(false);
+                button16.setEnabled(false);*/
                 button16.setEnabled(false);
                 button17.setEnabled(false);
+                button18.setEnabled(false);
                 button19.setEnabled(false);
                 button20.setEnabled(false);
-                button16.setVisibility(View.INVISIBLE);
-                button17.setVisibility(View.INVISIBLE);
-                button19.setVisibility(View.INVISIBLE);
-                button20.setVisibility(View.INVISIBLE);
+                /*button1.setVisibility(View.GONE);
+                button2.setVisibility(View.GONE);
+                button3.setVisibility(View.GONE);
+                button4.setVisibility(View.GONE);
+                button5.setVisibility(View.GONE);
+                button6.setVisibility(View.GONE);
+                button7.setVisibility(View.GONE);
+                button8.setVisibility(View.GONE);
+                button9.setVisibility(View.GONE);
+                button10.setVisibility(View.GONE);
+                button11.setVisibility(View.GONE);
+                button12.setVisibility(View.GONE);
+                button13.setVisibility(View.GONE);
+                button14.setVisibility(View.GONE);
+                button15.setVisibility(View.GONE);
+                button16.setVisibility(View.GONE);*/
+                button17.setVisibility(View.GONE);
+                button18.setVisibility(View.GONE);
+                button19.setVisibility(View.GONE);
+                button20.setVisibility(View.GONE);
                 break;
             case 18:
                 gameNum = 7;
+               /* button1.setEnabled(false);
+                button2.setEnabled(false);
+                button3.setEnabled(false);
+                button4.setEnabled(false);
+                button5.setEnabled(false);
+                button6.setEnabled(false);
+                button7.setEnabled(false);
+                button8.setEnabled(false);
+                button9.setEnabled(false);
+                button10.setEnabled(false);
+                button11.setEnabled(false);
+                button12.setEnabled(false);
+                button13.setEnabled(false);
+                button14.setEnabled(false);
+                button15.setEnabled(false);
+                button16.setEnabled(false);
                 button17.setEnabled(false);
+                button18.setEnabled(false);*/
+                button19.setEnabled(false);
                 button20.setEnabled(false);
-                button17.setVisibility(View.INVISIBLE);
-                button20.setVisibility(View.INVISIBLE);
+               /* button1.setVisibility(View.GONE);
+                button2.setVisibility(View.GONE);
+                button3.setVisibility(View.GONE);
+                button4.setVisibility(View.GONE);
+                button5.setVisibility(View.GONE);
+                button6.setVisibility(View.GONE);
+                button7.setVisibility(View.GONE);
+                button8.setVisibility(View.GONE);
+                button9.setVisibility(View.GONE);
+                button10.setVisibility(View.GONE);
+                button11.setVisibility(View.GONE);
+                button12.setVisibility(View.GONE);
+                button13.setVisibility(View.GONE);
+                button14.setVisibility(View.GONE);
+                button15.setVisibility(View.GONE);
+                button16.setVisibility(View.GONE);
+                button17.setVisibility(View.GONE);
+                button18.setVisibility(View.GONE);*/
+                button19.setVisibility(View.GONE);
+                button20.setVisibility(View.GONE);
                 break;
             case 20:
                 gameNum = 8;
@@ -299,68 +507,88 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         }
 
-        //Collections.shuffle(buttonList);
+        int listSize = buttonList.size();
+        for (int i = gameTiles; i < listSize; i++) {
+            buttonList.remove(gameTiles);
+        }
+        Collections.shuffle(buttonList);
 
-{
-                for (int i = 0; i < 20; i++) {
-                    int finalI = i;
-                    buttonList.get(i).setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            if(count == 0){
-                                buttonList.get(finalI).setText(words[finalI]);
-                                clicked = buttonList.get(finalI);
-                                clicked.setEnabled(false);
-                                count++;}
-                            else if(count == 1){
-                                buttonList.get(finalI).setText(words[finalI]);
-                                clicked2 = buttonList.get(finalI);
-                                clicked.setEnabled(true);
-                                count++;
-                                if(clicked.getText().toString().equals(clicked2.getText().toString())){
-                                    count = 0;
-                                    clicked.setEnabled(false);
-                                    clicked2.setEnabled(false);
-                                    newScore.addScore(2);
-                                } else {
-                                    newScore.addScore(-1);
-                                }
-                                tv1.setText("Score: "+newScore.getScore());
-                            }
+        for (int i = 0; i < buttonList.size() / 2; i++) {
+            int finalI = i;
+            buttonList.get(i).setOnClickListener(view -> {
+                if (count == 0) {
+                    buttonList.get(finalI).setText(words1[finalI]);
+                    clicked = buttonList.get(finalI);
+                    clicked.setEnabled(false);
+                    clickedOn[buttonList.indexOf(clicked)] = true;
+                    count++;
+                } else if (count == 1) {
+                    buttonList.get(finalI).setText(words1[finalI]);
+                    clicked2 = buttonList.get(finalI);
+                    clicked.setEnabled(true);
+                    clickedOn[buttonList.indexOf(clicked2)] = true;
+                    count++;
+                    if (clicked.getText().toString().equals(clicked2.getText().toString())) {
+                        count = 0;
+                        clicked.setEnabled(false);
+                        clicked2.setEnabled(false);
+                        newScore.addScore(2);
 
-                        }
-                    });
+                    } else {
+                        newScore.addScore(-1);
+                    }
+                    tv1.setText("Score: "+newScore.getScore());
                 }
-            }
 
-        button21.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                count = 0;
-                clicked.setText("");
-                clicked2.setText("");
-            }
-        });
+            });
+        }
+
+        for (int i = buttonList.size() / 2; i < buttonList.size(); i++) {
+            int finalI = i;
+            buttonList.get(i).setOnClickListener(view -> {
+                if (count == 0) {
+                    buttonList.get(finalI).setText(words1[finalI - buttonList.size() / 2]);
+                    clicked = buttonList.get(finalI);
+                    clicked.setEnabled(false);
+                    clickedOn[buttonList.indexOf(clicked)] = true;
+                    count++;
+                } else if (count == 1) {
+                    buttonList.get(finalI).setText(words1[finalI - buttonList.size() / 2]);
+                    clicked2 = buttonList.get(finalI);
+                    clicked.setEnabled(true);
+                    clickedOn[buttonList.indexOf(clicked2)] = true;
+                    count++;
+                    if (clicked.getText().toString().equals(clicked2.getText().toString())) {
+                        count = 0;
+                        clicked.setEnabled(false);
+                        clicked2.setEnabled(false);
+                        newScore.addScore(2);
+                    } else {
+                        newScore.addScore(-1);
+                    }
+                    tv1.setText("Score: "+newScore.getScore());
+                }
+
+            });
+        }
+
+
 
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-        switch (item.getItemId()){
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            fm.beginTransaction().remove(fragment).commit();
+            fragment = GameFragment.newInstance(false);
+            fm.beginTransaction().add(R.id.fragmentContainerView2, fragment).commit();
+            Intent parentActivityIntent = new Intent(GameActivity.this, SettingsActivity.class);
+            parentActivityIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
+                    Intent.FLAG_ACTIVITY_NEW_TASK);
 
-            case android.R.id.home:
-            {
-                fm.beginTransaction().remove(fragment).commit();
-                fragment = GameFragment.newInstance(false);
-                fm.beginTransaction().add(R.id.fragmentContainerView2,fragment).commit();
-                Intent parentActivityIntent = new Intent(GameActivity.this, SettingsActivity.class);
-                parentActivityIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
-                        Intent.FLAG_ACTIVITY_NEW_TASK);
-
-                startActivity(parentActivityIntent);
-                finish();
-                return true;
-            }
+            startActivity(parentActivityIntent);
+            finish();
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -368,11 +596,22 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     //moved to Score.java
 
 
-   @Override
-    public void onSaveInstanceState(Bundle savedInstanceState) {
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
 
         Log.i(TAG, "onSaveInstanceState");
+        savedInstanceState.putBooleanArray("matched", clickedOn);
+        try {
+            clickedID = clicked.getId();
+            clickedID2 = clicked2.getId();
+            savedInstanceState.putInt("ID", clickedID);
+            savedInstanceState.putInt("ID2", clickedID2);
+        } catch (Exception ignored) {
+
+        }
+
+        savedInstanceState.putBoolean("flag", false);
     } //saving data across rotation, save game state on rotation
 
     @Override
@@ -381,25 +620,30 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.mEndGame: {
 
                 //show answers
-                for(int i = 0; i < 20; i++){
-                    buttonList.get(i).setText(words[i]);
+                for (int i = 0; i < buttonList.size() / 2; i++) {
+                    buttonList.get(i).setText(words1[i]);
+
+                }
+                for (int i = buttonList.size() / 2; i < buttonList.size(); i++) {
+                    buttonList.get(i).setText(words1[(i - buttonList.size() / 2)]);
 
                 }
 
                 final Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        Intent parentActivityIntent = new Intent(GameActivity.this, YourScoreActivity.class);
-                        parentActivityIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
-                                Intent.FLAG_ACTIVITY_NEW_TASK);
 
-                        startActivity(parentActivityIntent);
-                        finish();
-                    }
-                }, 1200);
+                handler.postDelayed(() -> {
+                    Intent parentActivityIntent = new Intent(GameActivity.this, YourScoreActivity.class);
+                    parentActivityIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
+                            Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                    startActivity(parentActivityIntent);
+                    finish();
+                }, 3000);
+                //save scores
+
                 //save scores code below
                 score.addScore(gameNum, newScore);
+
                 //go to your score display
 
                 break;
@@ -407,13 +651,21 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.mNewGame: {
                 fm.beginTransaction().remove(fragment).commit();
                 fragment = GameFragment.newInstance(false);
-                fm.beginTransaction().add(R.id.fragmentContainerView2,fragment).commit();
+                fm.beginTransaction().add(R.id.fragmentContainerView2, fragment).commit();
                 Intent parentActivityIntent = new Intent(GameActivity.this, SettingsActivity.class);
                 parentActivityIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
                         Intent.FLAG_ACTIVITY_NEW_TASK);
 
                 startActivity(parentActivityIntent);
                 finish();
+                break;
+            }
+            case R.id.mRestart: {
+                if (clicked != null && clicked2 != null && (!clicked.getText().toString().equals(clicked2.getText().toString()))) {
+                    count = 0;
+                    clicked.setText("");
+                    clicked2.setText("");
+                }
                 break;
             }
 
