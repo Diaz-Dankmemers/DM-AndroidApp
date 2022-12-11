@@ -538,7 +538,9 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                         newScore.addScore(2);
 
                     } else {
-                        newScore.addScore(-1);
+                        if(newScore.getScore() > 0) {
+                            newScore.addScore(-1);
+                        }
                     }
                     tv1.setText("Score: "+newScore.getScore());
                 }
