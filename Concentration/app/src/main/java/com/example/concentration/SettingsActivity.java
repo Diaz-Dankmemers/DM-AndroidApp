@@ -24,6 +24,8 @@ import com.google.android.material.tooltip.TooltipDrawable;
 
 public class SettingsActivity extends AppCompatActivity implements View.OnClickListener {
 
+    private Button resetButton;
+    private Score score;
 
     private Button playButton;
     private Switch audioButton;
@@ -33,11 +35,22 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+        score = new Score(SettingsActivity.this);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
         getSupportActionBar().setTitle("Concentration");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+
+        resetButton = findViewById(R.id.resetScoresButton);
+        resetButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                score.resetScores();
+                score.saveScores();
+            }
+        });
 
         playButton = findViewById(R.id.mPlayButton);
         playButton.setOnClickListener(this::onClick);

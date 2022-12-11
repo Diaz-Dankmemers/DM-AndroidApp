@@ -127,4 +127,14 @@
         app:layout_constraintEnd_toEndOf="@+id/radioGroup"
         app:layout_constraintStart_toStartOf="@+id/radioGroup" />
 
+    <Button
+        android:id="@+id/resetScoresButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="16dp"
+        android:text="Reset Scores"
+        app:layout_constraintStart_toStartOf="@+id/mPlayButton"
+        app:layout_constraintTop_toBottomOf="@+id/mAudioSwitch" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
