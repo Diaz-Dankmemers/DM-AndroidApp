@@ -12,6 +12,7 @@
     <string name="new_crime">New Crime</string>
     <string name="choose_score_option">choose score option</string>
     <string name="high_scores">High Scores</string>
+    <string name="concentration">Concentration</string>
     <string-array name="dropDown">
         <item>4 tiles</item>
         <item>6 tiles</item>
