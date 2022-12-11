@@ -35,7 +35,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     //moved data saving to Score.java
 
     //code for handling scores
-    public int gameNum = -1;
+    public static int gameNum = -1;
     public static ScoreTrackingInterface newScore = new ScoreTracker();
     TextView tv1;
 
@@ -69,12 +69,12 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         ScoreTrackingInterface currentScore = new ScoreTracker();
 
 
-
+        /*
         score.testScores();
         System.out.println("testScores has been called");
         score.saveScores();
         System.out.println("saveScores has been called");
-
+        */
 
         Button button1 = (Button) findViewById(R.id.button1);
         Button button2 = (Button) findViewById(R.id.button2);
