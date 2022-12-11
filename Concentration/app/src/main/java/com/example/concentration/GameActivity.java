@@ -84,6 +84,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         }
 
+
+
         System.out.println("frag creation.");
 
         Intent settingsData = getIntent();
@@ -91,10 +93,12 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         fragment = GameFragment.newInstance(((Intent) settingsData).getBooleanExtra("audio", true));
         System.out.println("frag creation passed.");
 
-        System.out.println("Settings Received: " + settingsData.getBooleanExtra("audio", true));
-        System.out.println("adding settings data");
-        fm.beginTransaction().add(R.id.fragmentContainerView2, fragment).commit();
-        System.out.println("settings data added");
+        if (flag) {
+            System.out.println("Settings Received: " + settingsData.getBooleanExtra("audio", true));
+            System.out.println("adding settings data");
+            fm.beginTransaction().add(R.id.fragmentContainerView2, fragment).commit();
+            System.out.println("settings data added");
+        }
 
         ScoreTrackingInterface currentScore = new ScoreTracker();
 
