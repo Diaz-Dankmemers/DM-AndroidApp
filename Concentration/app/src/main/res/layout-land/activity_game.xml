@@ -8,7 +8,7 @@
     tools:context=".GameActivity">
 
     <TextView
-        android:id="@+id/mScoring"
+        android:id="@+id/mScoreDisplayGame"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/score"
@@ -35,8 +35,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="84dp"
         android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="@+id/mScoring"
-        app:layout_constraintStart_toStartOf="@+id/mScoring"
+        app:layout_constraintEnd_toEndOf="@+id/mScoreDisplayGame"
+        app:layout_constraintStart_toStartOf="@+id/mScoreDisplayGame"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.gridlayout.widget.GridLayout

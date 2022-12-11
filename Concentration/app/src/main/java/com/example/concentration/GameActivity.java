@@ -149,7 +149,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         buttonList.add(button19);
         buttonList.add(button20);
 
-        tv1 = (TextView)findViewById(R.id.scoreDisplayGame);
+        tv1 = (TextView)findViewById(R.id.mScoreDisplayGame);
         tv1.setText("Score: "+newScore.getScore());
 
         int gameTiles = getIntent().getIntExtra("tiles", 20);
