@@ -202,7 +202,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 button19.setVisibility(View.GONE);
                 button20.setVisibility(View.GONE);
                 break;
-                break;
             case 6:
                 gameNum = 1;
                 /*button1.setEnabled(false);
