@@ -569,7 +569,9 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                         clicked2.setEnabled(false);
                         newScore.addScore(2);
                     } else {
-                        newScore.addScore(-1);
+                        if(newScore.getScore() > 0) {
+                            newScore.addScore(-1);
+                        }
                     }
                     tv1.setText("Score: "+newScore.getScore());
                 }
@@ -654,6 +656,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             }
             case R.id.mNewGame: {
+                newScore.setScore(0);
                 fm.beginTransaction().remove(fragment).commit();
                 fragment = GameFragment.newInstance(false);
                 fm.beginTransaction().add(R.id.fragmentContainerView2, fragment).commit();
