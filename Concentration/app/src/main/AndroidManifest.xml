@@ -5,7 +5,6 @@
 
     <application
         android:allowBackup="true"
-        android:configChanges="orientation"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
@@ -16,21 +15,28 @@
         tools:targetApi="31">
         <activity
             android:name=".YourScoreActivity"
+            android:screenOrientation="sensor"
+
             android:exported="false" />
         <activity
             android:name=".HighScoresActivity"
+            android:screenOrientation="sensor"
+
             android:exported="false" />
         <activity
             android:name=".GameActivity"
-            android:configChanges="orientation"
+            android:screenOrientation="sensor"
+
             android:exported="false" />
         <activity
             android:name=".SettingsActivity"
-            android:configChanges="orientation"
+            android:screenOrientation="sensor"
+
             android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:configChanges="orientation"
+            android:screenOrientation="sensor"
+
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
