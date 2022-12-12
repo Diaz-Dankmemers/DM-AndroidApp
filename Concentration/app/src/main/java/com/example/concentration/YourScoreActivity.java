@@ -9,7 +9,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
+/***************************************************************
+ *  file: YourScoreActivity.java
+ *  author:
+ *  class: CS 2450
+ *
+ *  assignment: Android App
+ *  date last modified: 12/11/2022
+ *
+ *  purpose: This contains the code for score inputting
+ *
+ ****************************************************************/
 public class YourScoreActivity extends AppCompatActivity {
 
     private Button backToMainMenu;

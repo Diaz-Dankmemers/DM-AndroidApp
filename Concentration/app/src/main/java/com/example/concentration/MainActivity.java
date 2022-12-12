@@ -12,7 +12,17 @@ public class MainActivity extends AppCompatActivity{
 
     private Button startButton;
     private Button highScores;
-
+    /***************************************************************
+     *  file: MainActivity.java
+     *  author:
+     *  class: CS 2450
+     *
+     *  assignment: Android App
+     *  date last modified: 12/11/2022
+     *
+     *  purpose: This contains the code for the formatted main screen
+     *
+     ****************************************************************/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

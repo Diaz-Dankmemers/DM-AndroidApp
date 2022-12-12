@@ -14,7 +14,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-
+/***************************************************************
+ *  file: HighScoresActivity.java
+ *  author:
+ *  class: CS 2450
+ *
+ *  assignment: Android App
+ *  date last modified: 12/11/2022
+ *
+ *  purpose: This contains the code for high score functionality
+ *
+ ****************************************************************/
 public class HighScoresActivity extends AppCompatActivity {
 
     private Score score;
