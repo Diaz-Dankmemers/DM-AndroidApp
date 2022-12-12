@@ -171,8 +171,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         tv1 = (TextView)findViewById(R.id.mScoreDisplayGame);
         tv1.setText("Score: "+newScore.getScore());
 
-        int gameTiles = getIntent().getIntExtra("tiles", 20);
-        switch(gameTiles)
+        int gameTiles = getIntent().getIntExtra("tiles", 20); //amount of tiles
+        switch(gameTiles) //set buttons based on tiles and set where score will be saved
         {
             case 4:
                 gameNum = 0;
@@ -526,10 +526,11 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         int listSize = buttonList.size();
-        for (int i = gameTiles; i < listSize; i++) {
+        for (int i = gameTiles; i < listSize; i++) { //removes unnecessary buttons
             buttonList.remove(gameTiles);
         }
 
+        //tries to reinitialize buttons on rotate, start
         for (int i = 0; i < buttonList.size() / 2; i++) {
             if (clickedOn[i]) {
                 buttonList.get(i).setText(words1[i]);
@@ -542,10 +543,11 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 buttonList.get(i).setEnabled(false);
             }
         }
+        //end
 
-        Collections.shuffle(buttonList);
+        Collections.shuffle(buttonList); //shuffles buttons, randomizes what button is assigned what word
 
-        for (int i = 0; i < buttonList.size() / 2; i++) {
+        for (int i = 0; i < buttonList.size() / 2; i++) { //first half of buttons
             int finalI = i;
             buttonList.get(i).setOnClickListener(view -> {
 
@@ -554,40 +556,39 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
                     if(clicked == null)
                     {
-                        clickedID = buttonList.get(finalI).getId();
-                        clicked = buttonList.get(finalI);
-                        clicked.setEnabled(false);
-                        clickedOn[buttonList.indexOf(clicked)] = true;
+                        clickedID = buttonList.get(finalI).getId(); //get first comparison button's ID
+                        clicked = buttonList.get(finalI); //get first comparison button
+                        clicked.setEnabled(false); //disables button to prevent user from clicking it again
+                        clickedOn[buttonList.indexOf(clicked)] = true; //button is clicked on
                     }
-                    else
+                    else //if rotated between 2nd button press and user selects a button from first half of buttonList
                     {
-                        clickedID2 = buttonList.get(finalI).getId();
-                        clicked2 = buttonList.get(finalI);
-                        clicked2.setEnabled(false);
-                        clickedOn[buttonList.indexOf(clicked2)] = true;
+                        clickedID2 = buttonList.get(finalI).getId(); //get 2nd comparison button's ID
+                        clicked2 = buttonList.get(finalI); //get 2nd comparison button
+                        clickedOn[buttonList.indexOf(clicked2)] = true; //button is clicked on
 
                     }
-                    count++;
-                    try {
+                    count++; //pass count as info could work to simplify code
+                    try { //try if clicked or clicked2 is null
                         if (clicked.getText().toString().equals(clicked2.getText().toString())) {
                             count = 0;
                             clicked.setEnabled(false);
-                            clicked2.setEnabled(false);
-                            newScore.addScore(2);
+                            clicked2.setEnabled(false); //disables buttons
+                            newScore.addScore(2); //add 2 points
                             clicked = null;
-                            clicked2 = null;
-                            match++;
+                            clicked2 = null; //clicked and clicked2 set to null
+                            match++; //a match was made
                             if(match == gameTiles/2)
                             {
-                                endGame.performClick();
+                                endGame.performClick(); //end the game if all matches are made
                             }
 
                         } else {
                             clicked.setEnabled(true);
-                            clicked2.setEnabled(true);
+                            clicked2.setEnabled(true); //enable 2 compared buttons
                             if(newScore.getScore() > 0) {
 
-                                newScore.addScore(-1);
+                                newScore.addScore(-1); //minus 1 point
                             }
 
                         }
@@ -596,7 +597,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
                     }
 
-                    tv1.setText("Score: "+newScore.getScore());
+                    tv1.setText("Score: "+newScore.getScore()); //update score
                 } else if (count == 1) {
                     buttonList.get(finalI).setText(words1[finalI]);
 
