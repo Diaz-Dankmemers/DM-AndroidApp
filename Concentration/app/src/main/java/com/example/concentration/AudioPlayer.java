@@ -42,6 +42,15 @@ public class AudioPlayer {
         mPlayer.start();
     }
 
+    public void play(Context c, int time)
+    {
+        setSong(c);
+        mPlayer.setLooping(true);
+        mPlayer.setVolume(50,50);
+        mPlayer.seekTo(time);
+        mPlayer.start();
+    }
+
     public void pause()
     {
         mPlayer.pause();

@@ -10,10 +10,20 @@
 
 
     <Button
+        android:id="@+id/resetScoresButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Reset Scores"
+        app:layout_constraintBottom_toTopOf="@+id/mPlayButton"
+        app:layout_constraintEnd_toEndOf="@+id/mAudioSwitch"
+        app:layout_constraintStart_toStartOf="@+id/mAudioSwitch"
+        app:layout_constraintTop_toBottomOf="@+id/mAudioSwitch" />
+
+    <Button
         android:id="@+id/mPlayButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="92dp"
+        android:layout_marginBottom="28dp"
         android:text="@string/play"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -30,7 +40,7 @@
         app:layout_constraintEnd_toEndOf="@+id/mPlayButton"
         app:layout_constraintStart_toStartOf="@+id/mPlayButton"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.835" />
+        app:layout_constraintVertical_bias="0.672" />
 
     <RadioGroup
         android:id="@+id/radioGroup"

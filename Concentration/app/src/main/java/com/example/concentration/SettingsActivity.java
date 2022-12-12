@@ -2,6 +2,8 @@ package com.example.concentration;
 
 import static android.content.ContentValues.TAG;
 
+import static com.example.concentration.GameActivity.newScore;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.ViewModelProvider;
@@ -36,7 +38,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
 
         score = new Score(SettingsActivity.this);
-
+        newScore.setScore(0);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
         getSupportActionBar().setTitle("Concentration");

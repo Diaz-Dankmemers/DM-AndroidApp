@@ -2,6 +2,8 @@ package com.example.concentration;
 
 import static android.content.ContentValues.TAG;
 
+import static com.example.concentration.GameFragment.music;
+
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
@@ -29,10 +31,13 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private boolean[] clickedOn;
     private ArrayList<Button> buttonList = new ArrayList<Button>();
     private int count = 0;
+    private int match = 0;
     private Button endGame;
     private Button newGame;
     private Button refresh;
-    private boolean flag;
+    private boolean audioFlag;
+    private int musicTimestamp;
+
     private int clickedID, clickedID2;
     Button clicked;
     Button clicked2;
@@ -54,6 +59,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
 
+
         score = new Score(GameActivity.this);
         endGame = findViewById(R.id.mEndGame);
         newGame = findViewById(R.id.mNewGame);
@@ -62,9 +68,10 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         newGame.setOnClickListener(this::onClick);
         refresh.setOnClickListener(this::onClick);
         try {
-            flag = savedInstanceState.getBoolean("flag");
+            audioFlag = savedInstanceState.getBoolean("flag");
+
         } catch (Exception e) {
-            flag = true;
+            audioFlag = true;
         }
         try {
             clickedOn = savedInstanceState.getBooleanArray("matched");
@@ -73,7 +80,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         }
         try {
             clickedID = savedInstanceState.getInt("ID");
-            System.out.println("Clicked ID: " + clickedID);
+            System.out.println("Clicked ID name: " + clickedID);
             clickedID2 = savedInstanceState.getInt("ID2");
             System.out.println("Clicked ID2: " + clickedID2);
             clicked = findViewById(clickedID);
@@ -81,6 +88,14 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
             System.out.println("Clicked2 ID: " + clicked2.getId());
         } catch (Exception e) {
+
+        }
+        try {
+            musicTimestamp = savedInstanceState.getInt("musicTimestamp");
+            music.stop();
+            music.play(GameActivity.this,musicTimestamp);
+        }
+        catch (Exception e) {
 
         }
 
@@ -93,7 +108,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         fragment = GameFragment.newInstance(((Intent) settingsData).getBooleanExtra("audio", true));
         System.out.println("frag creation passed.");
 
-        if (flag) {
+        if (audioFlag) {
             System.out.println("Settings Received: " + settingsData.getBooleanExtra("audio", true));
             System.out.println("adding settings data");
             fm.beginTransaction().add(R.id.fragmentContainerView2, fragment).commit();
@@ -514,33 +529,117 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         for (int i = gameTiles; i < listSize; i++) {
             buttonList.remove(gameTiles);
         }
+
+        for (int i = 0; i < buttonList.size() / 2; i++) {
+            if (clickedOn[i]) {
+                buttonList.get(i).setText(words1[i]);
+                buttonList.get(i).setEnabled(false);
+            }
+        }
+        for (int i = buttonList.size() / 2; i < buttonList.size(); i++) {
+            if (clickedOn[i]) {
+                buttonList.get(i).setText(words1[(i - buttonList.size() / 2)]);
+                buttonList.get(i).setEnabled(false);
+            }
+        }
+
         Collections.shuffle(buttonList);
 
         for (int i = 0; i < buttonList.size() / 2; i++) {
             int finalI = i;
             buttonList.get(i).setOnClickListener(view -> {
+
                 if (count == 0) {
                     buttonList.get(finalI).setText(words1[finalI]);
-                    clicked = buttonList.get(finalI);
-                    clicked.setEnabled(false);
-                    clickedOn[buttonList.indexOf(clicked)] = true;
+
+                    if(clicked == null)
+                    {
+                        clickedID = buttonList.get(finalI).getId();
+                        clicked = buttonList.get(finalI);
+                        clicked.setEnabled(false);
+                        clickedOn[buttonList.indexOf(clicked)] = true;
+                    }
+                    else
+                    {
+                        clickedID2 = buttonList.get(finalI).getId();
+                        clicked2 = buttonList.get(finalI);
+                        clicked2.setEnabled(false);
+                        clickedOn[buttonList.indexOf(clicked2)] = true;
+
+                    }
                     count++;
+                    try {
+                        if (clicked.getText().toString().equals(clicked2.getText().toString())) {
+                            count = 0;
+                            clicked.setEnabled(false);
+                            clicked2.setEnabled(false);
+                            newScore.addScore(2);
+                            clicked = null;
+                            clicked2 = null;
+                            match++;
+                            if(match == gameTiles/2)
+                            {
+                                endGame.performClick();
+                            }
+
+                        } else {
+                            clicked.setEnabled(true);
+                            clicked2.setEnabled(true);
+                            if(newScore.getScore() > 0) {
+
+                                newScore.addScore(-1);
+                            }
+
+                        }
+
+                    } catch (Exception e) {
+
+                    }
+
+                    tv1.setText("Score: "+newScore.getScore());
                 } else if (count == 1) {
                     buttonList.get(finalI).setText(words1[finalI]);
-                    clicked2 = buttonList.get(finalI);
-                    clicked.setEnabled(true);
-                    clickedOn[buttonList.indexOf(clicked2)] = true;
-                    count++;
-                    if (clicked.getText().toString().equals(clicked2.getText().toString())) {
-                        count = 0;
-                        clicked.setEnabled(false);
-                        clicked2.setEnabled(false);
-                        newScore.addScore(2);
 
-                    } else {
-                        if(newScore.getScore() > 0) {
-                            newScore.addScore(-1);
+                    if(clicked2 == null)
+                    {
+                        clickedID2 = buttonList.get(finalI).getId();
+                        clicked2 = buttonList.get(finalI);
+                        clicked2.setEnabled(true);
+                        clickedOn[buttonList.indexOf(clicked2)] = true;
+                    }
+                    else
+                    {
+                        clickedID = buttonList.get(finalI).getId();
+                        clicked = buttonList.get(finalI);
+                        clicked.setEnabled(true);
+                        clickedOn[buttonList.indexOf(clicked)] = true;
+                    }
+                    count++;
+                    try {
+                        if (clicked.getText().toString().equals(clicked2.getText().toString())) {
+                            count = 0;
+                            clicked.setEnabled(false);
+                            clicked2.setEnabled(false);
+                            newScore.addScore(2);
+                            clicked = null;
+                            clicked2 = null;
+                            match++;
+                            if(match == gameTiles/2)
+                            {
+                                endGame.performClick();
+                            }
+
+                        } else {
+                            clicked.setEnabled(true);
+                            clicked2.setEnabled(true);
+                            if(newScore.getScore() > 0) {
+
+                                newScore.addScore(-1);
+                            }
                         }
+
+                    } catch (Exception e) {
+
                     }
                     tv1.setText("Score: "+newScore.getScore());
                 }
@@ -553,25 +652,95 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             buttonList.get(i).setOnClickListener(view -> {
                 if (count == 0) {
                     buttonList.get(finalI).setText(words1[finalI - buttonList.size() / 2]);
-                    clicked = buttonList.get(finalI);
-                    clicked.setEnabled(false);
-                    clickedOn[buttonList.indexOf(clicked)] = true;
-                    count++;
-                } else if (count == 1) {
-                    buttonList.get(finalI).setText(words1[finalI - buttonList.size() / 2]);
-                    clicked2 = buttonList.get(finalI);
-                    clicked.setEnabled(true);
-                    clickedOn[buttonList.indexOf(clicked2)] = true;
-                    count++;
-                    if (clicked.getText().toString().equals(clicked2.getText().toString())) {
-                        count = 0;
+
+                    if(clicked == null)
+                    {
+                        clickedID = buttonList.get(finalI).getId();
+                        clicked = buttonList.get(finalI);
+                        clicked.setEnabled(false);
+                        clickedOn[buttonList.indexOf(clicked)] = true;
+                    }
+                    else
+                    {
+                        clickedID2 = buttonList.get(finalI).getId();
+                        clicked2 = buttonList.get(finalI);
                         clicked.setEnabled(false);
                         clicked2.setEnabled(false);
-                        newScore.addScore(2);
-                    } else {
-                        if(newScore.getScore() > 0) {
-                            newScore.addScore(-1);
+                        clickedOn[buttonList.indexOf(clicked2)] = true;
+                    }
+                    count++;
+                    try {
+                        if (clicked.getText().toString().equals(clicked2.getText().toString())) {
+                            count = 0;
+                            clicked.setEnabled(false);
+                            clicked2.setEnabled(false);
+                            newScore.addScore(2);
+                            clicked = null;
+                            clicked2 = null;
+                            match++;
+                            if(match == gameTiles/2)
+                            {
+                                endGame.performClick();
+                            }
+
+                        } else {
+                            clicked.setEnabled(true);
+                            clicked2.setEnabled(true);
+                            if(newScore.getScore() > 0) {
+
+
+                                newScore.addScore(-1);
+                            }
                         }
+
+                    } catch (Exception e) {
+
+                    }
+                    tv1.setText("Score: "+newScore.getScore());
+                } else if (count == 1) {
+                    buttonList.get(finalI).setText(words1[finalI - buttonList.size() / 2]);
+
+                    if(clicked2 == null)
+                    {
+                        clickedID2 = buttonList.get(finalI).getId();
+                        clicked2 = buttonList.get(finalI);
+                        clicked2.setEnabled(true);
+                        clickedOn[buttonList.indexOf(clicked2)] = true;
+                    }
+                    else
+                    {
+                        clickedID = buttonList.get(finalI).getId();
+                        clicked = buttonList.get(finalI);
+                        clicked.setEnabled(true);
+                        clicked2.setEnabled(true);
+                        clickedOn[buttonList.indexOf(clicked)] = true;
+                    }
+                    count++;
+                    try {
+                        if (clicked.getText().toString().equals(clicked2.getText().toString())) {
+                            count = 0;
+                            clicked.setEnabled(false);
+                            clicked2.setEnabled(false);
+                            newScore.addScore(2);
+                            clicked = null;
+                            clicked2 = null;
+                            match++;
+                            if(match == gameTiles/2)
+                            {
+                                endGame.performClick();
+                            }
+
+                        } else {
+                            clicked.setEnabled(true);
+                            clicked2.setEnabled(true);
+                            if(newScore.getScore() > 0) {
+
+                                newScore.addScore(-1);
+                            }
+                        }
+
+                    } catch (Exception e) {
+
                     }
                     tv1.setText("Score: "+newScore.getScore());
                 }
@@ -609,15 +778,9 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         Log.i(TAG, "onSaveInstanceState");
         savedInstanceState.putBooleanArray("matched", clickedOn);
-        try {
-            clickedID = clicked.getId();
-            clickedID2 = clicked2.getId();
-            savedInstanceState.putInt("ID", clickedID);
-            savedInstanceState.putInt("ID2", clickedID2);
-        } catch (Exception ignored) {
-
-        }
-
+        savedInstanceState.putInt("musicTimestamp", music.getTimeStamp());
+        savedInstanceState.putInt("ID", clickedID);
+        savedInstanceState.putInt("ID2", clickedID2);
         savedInstanceState.putBoolean("flag", false);
     } //saving data across rotation, save game state on rotation
 
@@ -639,12 +802,15 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 final Handler handler = new Handler();
 
                 handler.postDelayed(() -> {
+
                     Intent parentActivityIntent = new Intent(GameActivity.this, YourScoreActivity.class);
                     parentActivityIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
                             Intent.FLAG_ACTIVITY_NEW_TASK);
 
                     startActivity(parentActivityIntent);
+
                     finish();
+
                 }, 3000);
                 //save scores
 
@@ -671,8 +837,14 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.mRestart: {
                 if (clicked != null && clicked2 != null && (!clicked.getText().toString().equals(clicked2.getText().toString()))) {
                     count = 0;
-                    clicked.setText("");
-                    clicked2.setText("");
+                    clicked.setEnabled(true);
+                    clicked2.setEnabled(true);
+                    clicked.setText(" ");
+                    clicked2.setText(" ");
+                    clickedOn[buttonList.indexOf(clicked)] = false;
+                    clickedOn[buttonList.indexOf(clicked2)] = false;
+                    clicked = null;
+                    clicked2 = null;
                 }
                 break;
             }

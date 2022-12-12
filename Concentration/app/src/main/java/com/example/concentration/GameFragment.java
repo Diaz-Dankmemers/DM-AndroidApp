@@ -30,7 +30,7 @@ public class GameFragment extends Fragment {
 
     // TODO: Rename and change types of parameters
     private boolean mParam1;
-    private AudioPlayer music;
+    public static AudioPlayer music;
     private int musicTimestamp;
 
 
