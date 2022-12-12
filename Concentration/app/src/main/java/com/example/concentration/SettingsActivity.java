@@ -23,6 +23,17 @@ import android.widget.RadioButton;
 import android.widget.Switch;
 
 import com.google.android.material.tooltip.TooltipDrawable;
+/***************************************************************
+ *  file: SettingsActivity.java
+ *  author:
+ *  class: CS 2450
+ *
+ *  assignment: Android App
+ *  date last modified: 12/11/2022
+ *
+ *  purpose: This contains the code for the settings page (Tile selection, audio button...)
+ *
+ ****************************************************************/
 
 public class SettingsActivity extends AppCompatActivity implements View.OnClickListener {
 
