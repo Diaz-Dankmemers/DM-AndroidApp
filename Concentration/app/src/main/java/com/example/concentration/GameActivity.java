@@ -836,6 +836,14 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
+            try{
+                music.stop();
+            }
+            catch (Exception e)
+            {
+
+            }
+
             fm.beginTransaction().remove(fragment).commit();
             fragment = GameFragment.newInstance(false);
             fm.beginTransaction().add(R.id.fragmentContainerView2, fragment).commit();
@@ -924,6 +932,13 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             }
             case R.id.mNewGame: {
                 newScore.setScore(0);
+                try{
+                    music.stop();
+                }
+                catch (Exception e)
+                {
+
+                }
                 fm.beginTransaction().remove(fragment).commit();
                 fragment = GameFragment.newInstance(false);
                 fm.beginTransaction().add(R.id.fragmentContainerView2, fragment).commit();
