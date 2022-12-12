@@ -22,6 +22,18 @@ import androidx.fragment.app.FragmentManager;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/***************************************************************
+ *  file: GameActivity.java
+ *  author: K. Hoang,
+ *  class: CS 2450
+ *
+ *  assignment: Android App
+ *  date last modified: 12/11/2022
+ *
+ *  purpose: This contains the code for the game screen functionality
+ *
+ ****************************************************************/
+
 public class GameActivity extends AppCompatActivity implements View.OnClickListener {
 
     private FragmentManager fm = getSupportFragmentManager();
@@ -39,8 +51,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private int musicTimestamp;
 
     private int clickedID, clickedID2;
-    Button clicked;
-    Button clicked2;
+    private Button clicked;
+    private Button clicked2;
 
 
     //moved data saving to Score.java
