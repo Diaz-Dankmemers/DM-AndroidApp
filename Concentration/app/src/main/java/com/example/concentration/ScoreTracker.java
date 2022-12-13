@@ -9,7 +9,17 @@ import android.content.Context;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
+/***************************************************************
+ *  file: ScoreTracker.java
+ *  author: J. Ong
+ *  class: CS 2450
+ *
+ *  assignment: Android App
+ *  date last modified: 12/11/2022
+ *
+ *  purpose: This contains the code for score tracking
+ *
+ ****************************************************************/
 public class ScoreTracker implements ScoreTrackingInterface{
 
     private static final String JSON_NAMES = "name";
@@ -22,12 +32,14 @@ public class ScoreTracker implements ScoreTrackingInterface{
         score = json.getInt(JSON_SCORES);
         name = json.getString(JSON_NAMES);
     }
-
+    // method: Constructor
+    // purpose: Initializes variables for tracking score
     public ScoreTracker() {
         score = 0;
         name = "AAA";
     }
-
+    // method: Constructor
+    // purpose: Initializes variables for tracking score
     public ScoreTracker(int points, String word){
         score = points;
         if(word.length() > 3)
@@ -37,7 +49,8 @@ public class ScoreTracker implements ScoreTrackingInterface{
         else
             name = word;
     }
-
+    // method: toJSON
+    // purpose: Converts input into JSON object
     public JSONObject toJSON() throws JSONException{
         JSONObject json = new JSONObject();
         json.put(JSON_NAMES, name);
@@ -46,23 +59,28 @@ public class ScoreTracker implements ScoreTrackingInterface{
     }
 
 
-
+    // method: setName
+    // purpose: Sets a new name
     public void setName(String newName){
         name = newName;
     }
-
+    // method: getName
+    // purpose: Returns name
     public String getName() {
         return name;
     }
-
+    // method: getScore
+    // purpose: returns the score
     public int getScore() {
         return score;
     }
-
+    // method: setScore
+    // purpose: Sets the score
     public void setScore(int newScore) {
         score = newScore;
     }
-
+    // method: addScore
+    // purpose: Add points to existing score
     public void addScore(int points) {
         score += points;
     }

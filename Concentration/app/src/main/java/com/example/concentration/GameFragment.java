@@ -16,12 +16,24 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+/***************************************************************
+ *  file: GameFragment.java
+ *  author: D. Menkir
+ *  class: CS 2450
+ *
+ *  assignment: Android App
+ *  date last modified: 12/11/2022
+ *
+ *  purpose: This contains the code for the fragment, making the music play
+ *
+ ****************************************************************/
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link GameFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
+
 public class GameFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
@@ -46,6 +58,8 @@ public class GameFragment extends Fragment {
      * @return A new instance of fragment GameFragment.
      */
     // TODO: Rename and change types and number of parameters
+    // method:newInstance
+    // purpose: This initializes the fragment.
     public static GameFragment newInstance(boolean param1) {
         GameFragment fragment = new GameFragment();
         Bundle args = new Bundle();
@@ -55,7 +69,8 @@ public class GameFragment extends Fragment {
 
         return fragment;
     }
-
+    // method:onCreate
+    // purpose: This sets up the UI for the fragment
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,7 +95,8 @@ public class GameFragment extends Fragment {
         }
 
     }
-
+    // method:onAttach
+    // purpose: This sets up the UI for the fragment
     @Override
     public void onAttach(Context context) {
 
@@ -105,7 +121,8 @@ public class GameFragment extends Fragment {
         music.stop();
         super.onDetach();
     }*/
-
+    // method:onDestroy
+    // purpose: This is the UI for stopping music
     @Override
     public void onDestroy() {
 
@@ -115,7 +132,8 @@ public class GameFragment extends Fragment {
         super.onDestroy();
 
     }
-
+    // method:onCreateView
+    // purpose: This is for the layout of the fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

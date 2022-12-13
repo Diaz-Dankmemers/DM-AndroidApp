@@ -25,7 +25,7 @@ import android.widget.Switch;
 import com.google.android.material.tooltip.TooltipDrawable;
 /***************************************************************
  *  file: SettingsActivity.java
- *  author:
+ *  author: D. Menkir, J. Ong
  *  class: CS 2450
  *
  *  assignment: Android App
@@ -45,6 +45,8 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
     private Intent settingsDataForGame;
     private boolean audio;
     private int tiles;
+    // method:onCreate
+    // purpose: This is the UI the settings screen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -79,7 +81,8 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
 
 
     }
-
+    // method:onSaveInstanceState
+    // purpose: This is the code for a saved state on the settings screen
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
@@ -87,6 +90,8 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         savedInstanceState.putBoolean("audio", audio);
     } //saving data across rotation, save settings on rotation
 
+    // method:onClick
+    // purpose: This is code for button functionality
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -113,7 +118,8 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
 
         }
     }
-
+    // method:onOptionsItemSelected
+    // purpose: This is the code for button functionality
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()){
@@ -130,7 +136,8 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         }
         return super.onOptionsItemSelected(item);
     }
-
+    // method:onRadioButtonClicked
+    // purpose: This is code for radio button functionality
     public void onRadioButtonClicked(View view) {
         // Is the button now checked?
         boolean checked = ((RadioButton) view).isChecked();

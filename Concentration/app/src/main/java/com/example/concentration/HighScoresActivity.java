@@ -16,19 +16,20 @@ import android.widget.Toast;
 import java.util.ArrayList;
 /***************************************************************
  *  file: HighScoresActivity.java
- *  author:
+ *  author: J. Ong
  *  class: CS 2450
  *
  *  assignment: Android App
  *  date last modified: 12/11/2022
  *
- *  purpose: This contains the code for high score functionality
+ *  purpose: This contains the code high score functionality
  *
  ****************************************************************/
 public class HighScoresActivity extends AppCompatActivity {
 
     private Score score;
-
+    // method:onCreate
+    // purpose: This is the UI for highscores
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +47,8 @@ public class HighScoresActivity extends AppCompatActivity {
         spinnerTiles.setAdapter(adapter);
 
         spinnerTiles.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            // method:onItemSelected
+            // purpose: This is the functionality for the buttons
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
@@ -108,14 +111,16 @@ public class HighScoresActivity extends AppCompatActivity {
                 tv2.setText(selectedScores.get(1).getName() + ": " + selectedScores.get(1).getScore());
                 tv3.setText(selectedScores.get(2).getName() + ": " + selectedScores.get(2).getScore());
             }
-
+            // method:onNothingSelected
+            // purpose: This is the code for not selecting anything
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
         });
     }
-
+    // method:onOptionsItemSelected
+    // purpose: This is for button functionality
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()){

@@ -21,18 +21,30 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.ArrayList;
-
+/***************************************************************
+ *  file: ScoresJSONSerializer.java
+ *  author: J. Ong
+ *  class: CS 2450
+ *
+ *  assignment: Android App
+ *  date last modified: 12/11/2022
+ *
+ *  purpose: This contains the code for saving the highscores to a file
+ *
+ ****************************************************************/
 public class ScoresJSONSerializer {
 
     private Context mContext;
     private String mFileName;
-
+    // method: Constructor
+    // purpose: Initializes variables for score saving
     public ScoresJSONSerializer(Context c, String f){
         mContext = c;
         mFileName = f;
 
     }
-
+    // method: saveScores
+    // purpose: Saves scores to file
     public void saveScores(ArrayList<ArrayList<ScoreTracker>> scores) throws JSONException, IOException {
         ArrayList<JSONArray> jsonArrays = new ArrayList<>();
         for(int i=0; i<scores.size(); i++) {
@@ -57,7 +69,8 @@ public class ScoresJSONSerializer {
         }
         }
 
-
+    // method: loadScores
+    // purpose: Loads scores from file
     public ArrayList<ArrayList<ScoreTracker>> loadScores() throws IOException, JSONException{
         ArrayList<ArrayList<ScoreTracker>> scores = new ArrayList<ArrayList<ScoreTracker>>();
         BufferedReader reader = null;

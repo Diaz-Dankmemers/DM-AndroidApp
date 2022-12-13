@@ -8,6 +8,17 @@ import com.example.concentration.ScoreTracker;
 import com.example.concentration.ScoresJSONSerializer;
 
 import java.util.ArrayList;
+/***************************************************************
+ *  file: Score.java
+ *  author: J. Ong
+ *  class: CS 2450
+ *
+ *  assignment: Android App
+ *  date last modified: 12/11/2022
+ *
+ *  purpose: This contains the code for file saving the score
+ *
+ ****************************************************************/
 
 public class Score {
 
@@ -21,7 +32,8 @@ public class Score {
 
     private static GameActivity sGameActivity;
     private Context mAppContext;
-
+    //method:Constructor
+    //purpose: loads score
     public Score(Context appContext){
         mAppContext = appContext;
 
@@ -36,12 +48,14 @@ public class Score {
         }
 
     }
-
+    //method:getScores
+    //purpose: returns score
     public ArrayList<ScoreTracker> getScores(int i){
         return mScores.get(i);
     }
 
-    //Removes all but the three highest scores.
+    //method:removeLowScores
+    //Purpose:Removes all but the three highest scores.
     private void removeLowScores(){
         for(int i=0; i<mScores.size(); i++) {
             while (mScores.get(i).size() > 3) {
@@ -57,7 +71,8 @@ public class Score {
             }
         }
     }
-
+    //method:sortScores
+    //purpose: Organizes scores from lowest to highest
     private void sortScores(){
         for(int i=0; i<mScores.size(); i++) {
             ArrayList<ScoreTracker> sorted = new ArrayList<>();
@@ -75,14 +90,17 @@ public class Score {
             mScores.set(i, sorted);
         }
     }
-
+    //method:addScore
+    //purpose: Adds a high score
     public void addScore(int i, ScoreTrackingInterface s)
     {
         mScores.get(i).add((ScoreTracker) s);
     }
-
+    //method:getmScores
+    //purpose: returns the scores
     public ArrayList<ArrayList<ScoreTracker>> getmScores() { return  mScores;}
-
+    //method:saveScores
+    //purpose: Saves scores to file
     public boolean saveScores() {
         try {
             removeLowScores();
@@ -95,7 +113,8 @@ public class Score {
             return false;
         }
     }
-
+    //method:resetScores
+    //purpose: resets the scores in the ArrayList
     public void resetScores(){
         mScores = new ArrayList<>();
         for(int i=0; i<9; i++) {
@@ -106,7 +125,8 @@ public class Score {
             mScores.add(iScores);
         }
     }
-
+    //method:testScores
+    //purpose: Testing with example scores
     public void testScores(){
         //resetScores();
         for(int i=0; i<mScores.size(); i++) {
@@ -119,7 +139,8 @@ public class Score {
         }
         //testScores2();
     }
-
+    //method:submitScore
+    //purpose: User input submitting scores.
     public void submitScore(int tiles, int score, String name){
         mScores.get(tiles).add(new ScoreTracker(score, name));
     }

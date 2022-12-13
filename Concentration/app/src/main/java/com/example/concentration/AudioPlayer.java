@@ -5,7 +5,7 @@ import android.media.MediaPlayer;
 
 /***************************************************************
  *  file: AudioPlayer.java
- *  author:
+ *  author: D. Menkir
  *  class: CS 2450
  *
  *  assignment: Android App

@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity{
     private Button highScores;
     /***************************************************************
      *  file: MainActivity.java
-     *  author:
+     *  author: D. Menkir
      *  class: CS 2450
      *
      *  assignment: Android App
@@ -23,6 +23,8 @@ public class MainActivity extends AppCompatActivity{
      *  purpose: This contains the code for the formatted main screen
      *
      ****************************************************************/
+    // method:onCreate
+    // purpose: This is the UI for the main screen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +36,8 @@ public class MainActivity extends AppCompatActivity{
 
         startButton = findViewById(R.id.mStartButton);
         startButton.setOnClickListener(new View.OnClickListener() {
-
+            // method:onClick
+            // purpose: This is the UI clicking and button functionality
             @Override
             public void onClick(View v) {
                 switch (v.getId()) {
@@ -49,7 +52,8 @@ public class MainActivity extends AppCompatActivity{
         });
         highScores = findViewById(R.id.mHighScores);
         highScores.setOnClickListener(new View.OnClickListener() {
-
+            // method:onClick
+            // purpose: This is the UI clicking and button functionality
             @Override
             public void onClick(View v) {
                 switch (v.getId()) {

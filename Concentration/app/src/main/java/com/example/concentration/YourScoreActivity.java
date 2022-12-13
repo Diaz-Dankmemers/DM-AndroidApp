@@ -11,7 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 /***************************************************************
  *  file: YourScoreActivity.java
- *  author:
+ *  author: J. Ong
  *  class: CS 2450
  *
  *  assignment: Android App
@@ -27,7 +27,8 @@ public class YourScoreActivity extends AppCompatActivity {
     private Score score;
     TextView tv1;
     EditText nameInput;
-
+    // method:onCreate
+    // purpose: This is the UI the high scores screen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +53,8 @@ public class YourScoreActivity extends AppCompatActivity {
 
         submit = findViewById(R.id.submitButton);
         submit.setOnClickListener(new View.OnClickListener() {
+            // method:onClick
+            // purpose: This is code for button functionality
             @Override
             public void onClick(View view) {
                 String gName = nameInput.getText().toString();
@@ -66,6 +69,8 @@ public class YourScoreActivity extends AppCompatActivity {
 
         backToMainMenu = findViewById(R.id.mMainMenu);
         backToMainMenu.setOnClickListener(new View.OnClickListener() {
+            // method:onClick
+            // purpose: This is code for button functionality
             @Override
             public void onClick(View v) {
 

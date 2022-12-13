@@ -24,7 +24,7 @@ import java.util.Collections;
 
 /***************************************************************
  *  file: GameActivity.java
- *  author: K. Hoang,
+ *  author: K. Hoang, J. Ong, D Menkir, S. Araya
  *  class: CS 2450
  *
  *  assignment: Android App
@@ -62,7 +62,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     public static ScoreTrackingInterface newScore = new ScoreTracker();
     TextView tv1;
 
-
+    // method:onCreate
+    // purpose: This sets up all the UI for the activity screen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -764,7 +765,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
 
     }
-
+    // method:onOptionsItemSelected
+    // purpose: This sets up the UI for the activity screen
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
@@ -784,7 +786,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     //moved to Score.java
 
-
+    // method:onSaveInstanceState
+    // purpose: This saves settings for the screen
     @Override
     public void onSaveInstanceState(@NonNull Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
@@ -797,6 +800,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         savedInstanceState.putBoolean("flag", false);
     } //saving data across rotation, save game state on rotation
 
+    // method:onClick
+    // purpose: This sets up actions for clicking a button.
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
