@@ -43,13 +43,13 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private boolean[] clickedOn;
     private ArrayList<Button> buttonList = new ArrayList<Button>();
     private int count = 0;
-    private int match = 0;
+    private int match;
     private Button endGame;
     private Button newGame;
     private Button refresh;
     private boolean audioFlag;
     private int musicTimestamp;
-
+    private boolean repeat;
     private int clickedID, clickedID2;
     private Button clicked;
     private Button clicked2;
@@ -80,6 +80,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         endGame.setOnClickListener(this::onClick);
         newGame.setOnClickListener(this::onClick);
         refresh.setOnClickListener(this::onClick);
+
+        int gameTiles = getIntent().getIntExtra("tiles", 20); //amount of tiles
         try {
             audioFlag = savedInstanceState.getBoolean("flag");
 
@@ -87,9 +89,12 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             audioFlag = true;
         }
         try {
-            clickedOn = savedInstanceState.getBooleanArray("matched");
+            clickedOn = savedInstanceState.getBooleanArray("enable");
         } catch (Exception e) {
-            clickedOn = new boolean[]{false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false,};
+            clickedOn = new boolean[gameTiles];
+            for (int i = 0; i < gameTiles; i++) {
+                clickedOn[i] = true;
+            }
         }
         try {
             clickedID = savedInstanceState.getInt("ID");
@@ -104,12 +109,32 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         }
         try {
-            musicTimestamp = savedInstanceState.getInt("musicTimestamp");
-            music.stop();
-            music.play(GameActivity.this,musicTimestamp);
+            if(audioFlag) {
+                musicTimestamp = savedInstanceState.getInt("musicTimestamp");
+                music.stop();
+                music.play(GameActivity.this, musicTimestamp);
+            }
         }
         catch (Exception e) {
 
+        }
+        try {
+            count = savedInstanceState.getInt("count");
+        }
+        catch (Exception e) {
+
+        }
+        try {
+            repeat = savedInstanceState.getBoolean("repeat");
+        }
+        catch (Exception e) {
+            repeat = false;
+        }
+        try {
+            match = savedInstanceState.getInt("match");
+        }
+        catch (Exception e) {
+            match = 0;
         }
 
 
@@ -159,36 +184,18 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         Button button19 = (Button) findViewById(R.id.button19);
         Button button20 = (Button) findViewById(R.id.button20);
 
-
-        buttonList.add(button1);
-        buttonList.add(button2);
-        buttonList.add(button3);
-        buttonList.add(button4);
-        buttonList.add(button5);
-        buttonList.add(button6);
-        buttonList.add(button7);
-        buttonList.add(button8);
-        buttonList.add(button9);
-        buttonList.add(button10);
-        buttonList.add(button11);
-        buttonList.add(button12);
-        buttonList.add(button13);
-        buttonList.add(button14);
-        buttonList.add(button15);
-        buttonList.add(button16);
-        buttonList.add(button17);
-        buttonList.add(button18);
-        buttonList.add(button19);
-        buttonList.add(button20);
-
         tv1 = (TextView)findViewById(R.id.mScoreDisplayGame);
         tv1.setText("Score: "+newScore.getScore());
 
-        int gameTiles = getIntent().getIntExtra("tiles", 20); //amount of tiles
+
         switch(gameTiles) //set buttons based on tiles and set where score will be saved
         {
             case 4:
                 gameNum = 0;
+                buttonList.add(button1);
+                buttonList.add(button2);
+                buttonList.add(button3);
+                buttonList.add(button4);
                 /*button1.setEnabled(false);
                 button2.setEnabled(false);
                 button3.setEnabled(false);
@@ -232,6 +239,12 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case 6:
                 gameNum = 1;
+                buttonList.add(button1);
+                buttonList.add(button2);
+                buttonList.add(button3);
+                buttonList.add(button4);
+                buttonList.add(button5);
+                buttonList.add(button6);
                 /*button1.setEnabled(false);
                 button2.setEnabled(false);
                 button3.setEnabled(false);
@@ -275,6 +288,14 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case 8:
                 gameNum = 2;
+                buttonList.add(button1);
+                buttonList.add(button2);
+                buttonList.add(button3);
+                buttonList.add(button4);
+                buttonList.add(button5);
+                buttonList.add(button6);
+                buttonList.add(button7);
+                buttonList.add(button8);
                 /*button1.setEnabled(false);
                 button2.setEnabled(false);
                 button3.setEnabled(false);
@@ -318,6 +339,16 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case 10:
                 gameNum = 3;
+                buttonList.add(button1);
+                buttonList.add(button2);
+                buttonList.add(button3);
+                buttonList.add(button4);
+                buttonList.add(button5);
+                buttonList.add(button6);
+                buttonList.add(button7);
+                buttonList.add(button8);
+                buttonList.add(button9);
+                buttonList.add(button10);
                 /*button1.setEnabled(false);
                 button2.setEnabled(false);
                 button3.setEnabled(false);
@@ -361,6 +392,18 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case 12:
                 gameNum = 4;
+                buttonList.add(button1);
+                buttonList.add(button2);
+                buttonList.add(button3);
+                buttonList.add(button4);
+                buttonList.add(button5);
+                buttonList.add(button6);
+                buttonList.add(button7);
+                buttonList.add(button8);
+                buttonList.add(button9);
+                buttonList.add(button10);
+                buttonList.add(button11);
+                buttonList.add(button12);
                /* button1.setEnabled(false);
                 button2.setEnabled(false);
                 button3.setEnabled(false);
@@ -404,6 +447,20 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case 14:
                 gameNum = 5;
+                buttonList.add(button1);
+                buttonList.add(button2);
+                buttonList.add(button3);
+                buttonList.add(button4);
+                buttonList.add(button5);
+                buttonList.add(button6);
+                buttonList.add(button7);
+                buttonList.add(button8);
+                buttonList.add(button9);
+                buttonList.add(button10);
+                buttonList.add(button11);
+                buttonList.add(button12);
+                buttonList.add(button13);
+                buttonList.add(button14);
                /* button1.setEnabled(false);
                 button2.setEnabled(false);
                 button3.setEnabled(false);
@@ -447,6 +504,22 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case 16:
                 gameNum = 6;
+                buttonList.add(button1);
+                buttonList.add(button2);
+                buttonList.add(button3);
+                buttonList.add(button4);
+                buttonList.add(button5);
+                buttonList.add(button6);
+                buttonList.add(button7);
+                buttonList.add(button8);
+                buttonList.add(button9);
+                buttonList.add(button10);
+                buttonList.add(button11);
+                buttonList.add(button12);
+                buttonList.add(button13);
+                buttonList.add(button14);
+                buttonList.add(button15);
+                buttonList.add(button16);
                /* button1.setEnabled(false);
                 button2.setEnabled(false);
                 button3.setEnabled(false);
@@ -491,6 +564,24 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case 18:
                 gameNum = 7;
+                buttonList.add(button1);
+                buttonList.add(button2);
+                buttonList.add(button3);
+                buttonList.add(button4);
+                buttonList.add(button5);
+                buttonList.add(button6);
+                buttonList.add(button7);
+                buttonList.add(button8);
+                buttonList.add(button9);
+                buttonList.add(button10);
+                buttonList.add(button11);
+                buttonList.add(button12);
+                buttonList.add(button13);
+                buttonList.add(button14);
+                buttonList.add(button15);
+                buttonList.add(button16);
+                buttonList.add(button17);
+                buttonList.add(button18);
                /* button1.setEnabled(false);
                 button2.setEnabled(false);
                 button3.setEnabled(false);
@@ -534,31 +625,48 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case 20:
                 gameNum = 8;
+                buttonList.add(button1);
+                buttonList.add(button2);
+                buttonList.add(button3);
+                buttonList.add(button4);
+                buttonList.add(button5);
+                buttonList.add(button6);
+                buttonList.add(button7);
+                buttonList.add(button8);
+                buttonList.add(button9);
+                buttonList.add(button10);
+                buttonList.add(button11);
+                buttonList.add(button12);
+                buttonList.add(button13);
+                buttonList.add(button14);
+                buttonList.add(button15);
+                buttonList.add(button16);
+                buttonList.add(button17);
+                buttonList.add(button18);
+                buttonList.add(button19);
+                buttonList.add(button20);
                 break;
 
         }
 
-        int listSize = buttonList.size();
-        for (int i = gameTiles; i < listSize; i++) { //removes unnecessary buttons
-            buttonList.remove(gameTiles);
-        }
 
         //tries to reinitialize buttons on rotate, start
         for (int i = 0; i < buttonList.size() / 2; i++) {
-            if (clickedOn[i]) {
+            if (!clickedOn[i]) {
                 buttonList.get(i).setText(words1[i]);
                 buttonList.get(i).setEnabled(false);
             }
         }
         for (int i = buttonList.size() / 2; i < buttonList.size(); i++) {
-            if (clickedOn[i]) {
+            if (!clickedOn[i]) {
                 buttonList.get(i).setText(words1[(i - buttonList.size() / 2)]);
                 buttonList.get(i).setEnabled(false);
             }
         }
         //end
 
-        Collections.shuffle(buttonList); //shuffles buttons, randomizes what button is assigned what word
+
+
 
         for (int i = 0; i < buttonList.size() / 2; i++) { //first half of buttons
             int finalI = i;
@@ -566,21 +674,9 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
                 if (count == 0) {
                     buttonList.get(finalI).setText(words1[finalI]);
-
-                    if(clicked == null)
-                    {
                         clickedID = buttonList.get(finalI).getId(); //get first comparison button's ID
                         clicked = buttonList.get(finalI); //get first comparison button
                         clicked.setEnabled(false); //disables button to prevent user from clicking it again
-                        clickedOn[buttonList.indexOf(clicked)] = true; //button is clicked on
-                    }
-                    else //if rotated between 2nd button press and user selects a button from first half of buttonList
-                    {
-                        clickedID2 = buttonList.get(finalI).getId(); //get 2nd comparison button's ID
-                        clicked2 = buttonList.get(finalI); //get 2nd comparison button
-                        clickedOn[buttonList.indexOf(clicked2)] = true; //button is clicked on
-
-                    }
                     count++; //pass count as info could work to simplify code
                     try { //try if clicked or clicked2 is null
                         if (clicked.getText().toString().equals(clicked2.getText().toString())) {
@@ -590,6 +686,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                             newScore.addScore(2); //add 2 points
                             clicked = null;
                             clicked2 = null; //clicked and clicked2 set to null
+                            clickedID = 0;
+                            clickedID2 = 0;
                             match++; //a match was made
                             if(match == gameTiles/2)
                             {
@@ -613,21 +711,9 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                     tv1.setText("Score: "+newScore.getScore()); //update score
                 } else if (count == 1) {
                     buttonList.get(finalI).setText(words1[finalI]);
-
-                    if(clicked2 == null)
-                    {
                         clickedID2 = buttonList.get(finalI).getId();
                         clicked2 = buttonList.get(finalI);
                         clicked2.setEnabled(true);
-                        clickedOn[buttonList.indexOf(clicked2)] = true;
-                    }
-                    else
-                    {
-                        clickedID = buttonList.get(finalI).getId();
-                        clicked = buttonList.get(finalI);
-                        clicked.setEnabled(true);
-                        clickedOn[buttonList.indexOf(clicked)] = true;
-                    }
                     count++;
                     try {
                         if (clicked.getText().toString().equals(clicked2.getText().toString())) {
@@ -637,6 +723,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                             newScore.addScore(2);
                             clicked = null;
                             clicked2 = null;
+                            clickedID = 0;
+                            clickedID2 = 0;
                             match++;
                             if(match == gameTiles/2)
                             {
@@ -652,6 +740,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                             }
                         }
 
+
                     } catch (Exception e) {
 
                     }
@@ -666,22 +755,9 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             buttonList.get(i).setOnClickListener(view -> {
                 if (count == 0) {
                     buttonList.get(finalI).setText(words1[finalI - buttonList.size() / 2]);
-
-                    if(clicked == null)
-                    {
                         clickedID = buttonList.get(finalI).getId();
                         clicked = buttonList.get(finalI);
                         clicked.setEnabled(false);
-                        clickedOn[buttonList.indexOf(clicked)] = true;
-                    }
-                    else
-                    {
-                        clickedID2 = buttonList.get(finalI).getId();
-                        clicked2 = buttonList.get(finalI);
-                        clicked.setEnabled(false);
-                        clicked2.setEnabled(false);
-                        clickedOn[buttonList.indexOf(clicked2)] = true;
-                    }
                     count++;
                     try {
                         if (clicked.getText().toString().equals(clicked2.getText().toString())) {
@@ -691,6 +767,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                             newScore.addScore(2);
                             clicked = null;
                             clicked2 = null;
+                            clickedID = 0;
+                            clickedID2 = 0;
                             match++;
                             if(match == gameTiles/2)
                             {
@@ -713,22 +791,9 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                     tv1.setText("Score: "+newScore.getScore());
                 } else if (count == 1) {
                     buttonList.get(finalI).setText(words1[finalI - buttonList.size() / 2]);
-
-                    if(clicked2 == null)
-                    {
                         clickedID2 = buttonList.get(finalI).getId();
                         clicked2 = buttonList.get(finalI);
                         clicked2.setEnabled(true);
-                        clickedOn[buttonList.indexOf(clicked2)] = true;
-                    }
-                    else
-                    {
-                        clickedID = buttonList.get(finalI).getId();
-                        clicked = buttonList.get(finalI);
-                        clicked.setEnabled(true);
-                        clicked2.setEnabled(true);
-                        clickedOn[buttonList.indexOf(clicked)] = true;
-                    }
                     count++;
                     try {
                         if (clicked.getText().toString().equals(clicked2.getText().toString())) {
@@ -738,6 +803,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                             newScore.addScore(2);
                             clicked = null;
                             clicked2 = null;
+                            clickedID = 0;
+                            clickedID2 = 0;
                             match++;
                             if(match == gameTiles/2)
                             {
@@ -752,6 +819,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                                 newScore.addScore(-1);
                             }
                         }
+
 
                     } catch (Exception e) {
 
@@ -770,6 +838,14 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
+            try{
+                music.stop();
+            }
+            catch (Exception e)
+            {
+
+            }
+
             fm.beginTransaction().remove(fragment).commit();
             fragment = GameFragment.newInstance(false);
             fm.beginTransaction().add(R.id.fragmentContainerView2, fragment).commit();
@@ -794,9 +870,29 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         Log.i(TAG, "onSaveInstanceState");
         savedInstanceState.putBooleanArray("matched", clickedOn);
-        savedInstanceState.putInt("musicTimestamp", music.getTimeStamp());
+        try{
+            savedInstanceState.putInt("musicTimestamp", music.getTimeStamp());
+        } catch (Exception e) {
+
+        }
+        boolean[] enable = new boolean[buttonList.size()];
+        for(int i = 0; i < buttonList.size(); i++)
+        {
+            enable[i] = buttonList.get(i).isEnabled();
+        }
+
+        try{
+
+           savedInstanceState.putBooleanArray("enable", enable);
+        } catch (Exception e) {
+
+        }
+
+        savedInstanceState.putInt("count", count);
         savedInstanceState.putInt("ID", clickedID);
         savedInstanceState.putInt("ID2", clickedID2);
+        savedInstanceState.putBoolean("repeat", true);
+        savedInstanceState.putInt("match", match);
         savedInstanceState.putBoolean("flag", false);
     } //saving data across rotation, save game state on rotation
 
@@ -841,6 +937,13 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             }
             case R.id.mNewGame: {
                 newScore.setScore(0);
+                try{
+                    music.stop();
+                }
+                catch (Exception e)
+                {
+
+                }
                 fm.beginTransaction().remove(fragment).commit();
                 fragment = GameFragment.newInstance(false);
                 fm.beginTransaction().add(R.id.fragmentContainerView2, fragment).commit();
@@ -859,8 +962,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                     clicked2.setEnabled(true);
                     clicked.setText(" ");
                     clicked2.setText(" ");
-                    clickedOn[buttonList.indexOf(clicked)] = false;
-                    clickedOn[buttonList.indexOf(clicked2)] = false;
                     clicked = null;
                     clicked2 = null;
                 }
